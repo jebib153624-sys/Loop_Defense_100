@@ -72,6 +72,8 @@ public class Enemy : MonoBehaviour
 
     public float moveSpeed;
     public Vector3 moveDirection;
+
+    private EnemySpawner enemySpawner;
     private void Start()
     {
         SetDirectionToNextWaypoint();
@@ -81,17 +83,19 @@ public class Enemy : MonoBehaviour
         transform.position += moveDirection * moveSpeed * Time.deltaTime; //이동방향 얻어오면 방향 바꾸고 이동함
         float distance = Vector3.Distance(transform.position, wayPoint[nextIndex].position); //거리계산 <- 처음이라면 0이니까 
 
-        if (distance <= 0.2f)
+        if (Vector3.Distance(transform.position, wayPoint[nextIndex].position) < 0.02f * moveSpeed)
         {
             //여기가 실행될거임
+            transform.position = wayPoint[nextIndex].position;
             MoveToNextWaypoint();
         }
 
     }
-    public void Setup(Transform[] wayPoints)
+    public void Setup(EnemySpawner enemySpawner,Transform[] wayPoints)
     {
         //이 함수는 
         this.wayPoint = wayPoints;
+        this.enemySpawner = enemySpawner;
 
         transform.position = wayPoint[0].position;
         nextIndex++;
@@ -99,6 +103,8 @@ public class Enemy : MonoBehaviour
     void MoveToNextWaypoint()
     {
         nextIndex++;
+
+        //밑 if문은 마지막 체크포인트를 지나면 처음으로 돌아가는 if문
         if(nextIndex == wayPoint.Length)
         {
             nextIndex = 0;
@@ -108,8 +114,14 @@ public class Enemy : MonoBehaviour
 
     void SetDirectionToNextWaypoint()
     {
+        //다음 채크 포인트의 방향을 얻어오는 함수 
         Vector3 dir = (wayPoint[nextIndex].position - transform.position).normalized;
         moveDirection = dir;
     }
 
+    public void Ondie()
+    {
+        enemySpawner.DestroyEnemy(this);
+        Debug.Log("충돌 왜안함");
+    }
 }

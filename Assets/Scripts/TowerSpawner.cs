@@ -5,28 +5,23 @@ public class TowerSpawner : MonoBehaviour
     [SerializeField]
     private GameObject towerPrefab;
 
-    private Camera mainCamera;
+    [SerializeField]
+    private EnemySpawner enemySpawner; // 적정보 받아오려고 
 
-    private void Awake()
+    public void SpawnTower(Transform position)
     {
-        mainCamera = Camera.main;
-    }
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
+        SpawnPosition spawnPosition = position.GetComponent<SpawnPosition>();
+
+        //갯수 제한하려고 만든 스크립트 (맵에 깔려있는거)에서 가져와서 갯주 제한함 
+        if(spawnPosition.IsBuildTower >= 2)
         {
-            Vector3 mouseWorldPos =
-                mainCamera.ScreenToWorldPoint(Input.mousePosition);
-
-            mouseWorldPos.z = 0f;
-
-            spawnTower(mouseWorldPos);
+            return;
         }
-    }
 
-    public void spawnTower(Vector3 position)
-    {
-        Instantiate(towerPrefab, position, Quaternion.identity);
+        spawnPosition.IsBuildTower++;
+
+        GameObject clone = Instantiate(towerPrefab, position.position, Quaternion.identity);
+        clone.GetComponent<TowerWeapon>().Setup(enemySpawner);
     }
 }

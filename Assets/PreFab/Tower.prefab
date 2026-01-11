@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1108064358586355163}
   - component: {fileID: 5604305301747133076}
   - component: {fileID: 2956157648384983062}
-  - component: {fileID: 8817208868512492629}
+  - component: {fileID: 6125854108743641046}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7975390500618831641}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.0932856, y: 2.0756931, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: ba5654a5c84e71146954d2abb2aa59a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.3
---- !u!114 &8817208868512492629
+--- !u!114 &6125854108743641046
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,6 +130,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7975390500618831641}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 722a7c4cf27d7bd45a491964dea60e03, type: 3}
+  m_Script: {fileID: 11500000, guid: db31cb8c2ca6409409bc2b0487be887b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bullet: {fileID: 2738632899159842217, guid: 7c7fe70f9dcee3c4389d1bca62aa90a2, type: 3}
+  spawnPoint: {fileID: 0}
+  attackRate: 0.5
+  attackRange: 1
