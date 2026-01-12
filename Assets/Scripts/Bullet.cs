@@ -8,11 +8,12 @@ public class Bullet : MonoBehaviour
     private Transform target;
     [SerializeField]
     private float moveSpeed = 2;
+    private int damage;
 
-    public void Setup(Transform target)
+    public void Setup(Transform target , int damage)
     {
-       
         this.target = target;        // 타워가 설정해준 target
+        this.damage = damage;
     }
 
     private void Update()
@@ -35,7 +36,8 @@ public class Bullet : MonoBehaviour
         if (!collision.CompareTag("Enemy")) return;   // 적이 아닌 대상과 부딪히면
         if (collision.transform != target) return;    // 현재 target이 적이 아닐 때
 
-        collision.GetComponent<Enemy>().Ondie();       // 적 사망 함수 호출
+        //collision.GetComponent<Enemy>().Ondie();       // 적 사망 함수 호출
+        collision.GetComponent<EnemyHP>().TakeDamage(damage); // 적 체력 감소 함수 호출
         Destroy(gameObject);                           // 발사체 오브젝트 삭제
     }
 

@@ -88,6 +88,7 @@ public class Enemy : MonoBehaviour
             //여기가 실행될거임
             transform.position = wayPoint[nextIndex].position;
             MoveToNextWaypoint();
+            
         }
 
     }
