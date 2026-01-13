@@ -106,6 +106,7 @@ MonoBehaviour:
   nextIndex: 0
   moveSpeed: 5
   moveDirection: {x: 0, y: 0, z: 0}
+  gold: 100
 --- !u!58 &-7913228682158786516
 CircleCollider2D:
   m_ObjectHideFlags: 0

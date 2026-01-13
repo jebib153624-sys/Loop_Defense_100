@@ -74,6 +74,9 @@ public class Enemy : MonoBehaviour
     public Vector3 moveDirection;
 
     private EnemySpawner enemySpawner;
+
+    [SerializeField]
+    private int gold; // 적 처치시 얻는 골드량
     private void Start()
     {
         SetDirectionToNextWaypoint();
@@ -122,7 +125,6 @@ public class Enemy : MonoBehaviour
 
     public void Ondie()
     {
-        enemySpawner.DestroyEnemy(this);
-        Debug.Log("충돌 왜안함");
+        enemySpawner.DestroyEnemy(this , gold);
     }
 }
