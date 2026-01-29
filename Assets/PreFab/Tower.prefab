@@ -12,6 +12,10 @@ GameObject:
   - component: {fileID: 5604305301747133076}
   - component: {fileID: 2956157648384983062}
   - component: {fileID: 6125854108743641046}
+  - component: {fileID: 600659088915684074}
+  - component: {fileID: -2273531179590025007}
+  - component: {fileID: 3679227499086056212}
+  - component: {fileID: -8119171342654232546}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -29,8 +33,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.78, y: 0.78, z: 0.78}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -77,8 +81,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: ba5654a5c84e71146954d2abb2aa59a0, type: 3}
+  m_SortingOrder: 100
+  m_Sprite: {fileID: 1894791874483291232, guid: 08f353d98da9f1a4e95415c50647d2bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -119,7 +123,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -142,3 +146,70 @@ MonoBehaviour:
   attackRate: 0.5
   attackRange: 1
   attackDamage: 1
+--- !u!114 &600659088915684074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7975390500618831641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599e67db67b057d4fa6548c91f878bda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsPickupCooldown: 0
+  IsDragging: 0
+--- !u!114 &-2273531179590025007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7975390500618831641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fe5ad649afc46548987d84018116f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3679227499086056212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7975390500618831641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e81e64062e3b9714a8db7280ca8af16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerType: 0
+  towerRank: 0
+--- !u!50 &-8119171342654232546
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7975390500618831641}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
