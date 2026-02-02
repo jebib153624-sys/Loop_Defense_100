@@ -1,35 +1,40 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class UpgradeJudge : MonoBehaviour
 {
     private TowerType myTowerType;
-    private TowerMover towerMover;
+    public SummonTower summonTower;
 
+    public int myListNum = -1;
     private void Start()
     {
         myTowerType = GetComponent<TowerType>();
-        towerMover = GetComponent<TowerMover>();
+        summonTower = FindAnyObjectByType<SummonTower>();
+        myListNum = summonTower.towerPosindex;
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("충돌 왜안하지 시발1");
-        if (towerMover.IsPickupCooldown) return;
-        Debug.Log("충돌 왜안하지 시발2");
-        TowerType other = collision.GetComponent<TowerType>();
 
-        if (other.towerType == myTowerType.towerType && other.towerRank == myTowerType.towerRank)
+    // 외부(TowerMover)에서 호출하는 합성 체크 함수
+    public bool TryUpgrade(GameObject target)
+    {
+        TowerType other = target.GetComponent<TowerType>();
+
+        if (other != null && other.towerType == myTowerType.towerType && other.towerRank == myTowerType.towerRank)
         {
             if (other.towerRank < TowerRank.Rank5)
             {
                 other.towerRank = (TowerRank)((int)other.towerRank + 1);
+
+                // 랭크업 시 시각적 업데이트 (Sprite 변경 등)를 호출하는 코드가 여기 오면 좋습니다.
+                target.GetComponent<TowerVisual>().UpdateVisual();
+                // other.UpdateVisual(); 
+
+                Debug.Log($"합성 성공! 현재 랭크: {other.towerRank}");
+
+                summonTower.towerPosition[myListNum].GetComponent<SpawnPosition>().IsBuildTower--; // 합성 후 드래그한 타워 위치의 빌드 상태 해제
+                Destroy(this.gameObject); // 드래그하던 나 자신 삭제
+                return true;
             }
-
-            Debug.Log("같은 타입 타워 충돌 → 랭크 업");
-
-            Destroy(this.gameObject);
         }
+        return false;
     }
-
 }

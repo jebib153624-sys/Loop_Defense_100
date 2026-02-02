@@ -13,7 +13,7 @@ public class TowerSpawner : MonoBehaviour
 
         SpawnPosition spawnPosition = position.GetComponent<SpawnPosition>();
 
-        /*   // 위치 넣는걸 함수 실행하기 전에 검사할 예정 //갯수 제한하려고 만든 스크립트 (맵에 깔려있는거)에서 가져와서 갯주 제한함 
+        /*   // 위치 넣는걸 함수 실행하기 전에 검사할 예정 //갯수 제한하려고 만든 스크립트 (맵에 깔려있는거)에서 가져와서 갯수 제한함 
         if(spawnPosition.IsBuildTower >= 2)
         {
             return;
@@ -22,14 +22,13 @@ public class TowerSpawner : MonoBehaviour
         spawnPosition.IsBuildTower++;
 
         GameObject clone = Instantiate(towerPrefab, position.position, Quaternion.identity);
-        clone.GetComponent<TowerWeapon>().Setup(enemySpawner);
-    }
-    public void ChangeColor()
-    {
-        SpriteRenderer renderer = towerPrefab.GetComponent<SpriteRenderer>();
-        if (renderer == null)
-            return;
 
-        renderer.color = Color.red;
+        TowerType towerTypeComp = clone.GetComponent<TowerType>();//타워타입 스크립트 가져오기
+        TowerTypes randomType = (TowerTypes)Random.Range(0, System.Enum.GetValues(typeof(TowerTypes)).Length);//타워타입 랜덤으로 정하기
+        towerTypeComp.towerType = randomType;//타워타입 스크립트에 랜덤으로 정한 타입 넣기
+
+        clone.GetComponent<TowerVisual>().UpdateVisual(); //타워 비주얼 업데이트
+
+        clone.GetComponent<TowerWeapon>().Setup(enemySpawner);
     }
 }

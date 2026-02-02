@@ -8,9 +8,9 @@ public class Bullet : MonoBehaviour
     private Transform target;
     [SerializeField]
     private float moveSpeed = 2;
-    private int damage;
+    private float damage;
 
-    public void Setup(Transform target , int damage)
+    public void Setup(Transform target , float damage)
     {
         this.target = target;        // 타워가 설정해준 target
         this.damage = damage;

@@ -12,20 +12,24 @@ public class TowerWeapon : MonoBehaviour
     [SerializeField]
     private Transform spawnPoint;            // 발사체 생성 위치
 
-    [SerializeField]
+    /*[SerializeField]
     private float attackRate = 0.5f;         // 공격 속도
 
     [SerializeField]
     private float attackRange = 2.0f;         // 공격 범위
     [SerializeField]
-    private int attackDamage = 1;         // 공격력
+    private int attackDamage = 1;         // 공격력 */
+
     private WeaponState weaponState = WeaponState.SearchTarget; // 타워 무기의 상태
     private Transform attackTarget = null;   // 공격 대상
     private EnemySpawner enemySpawner;        // 게임에 존재하는 적 정보 획득용
 
+    private TowerType towerType;
+
     private void Awake()
     {
         spawnPoint = this.transform;
+        towerType = GetComponent<TowerType>();
     }
     public void Setup(EnemySpawner enemySpawner)
     {
@@ -69,7 +73,7 @@ public class TowerWeapon : MonoBehaviour
 
                 // 현재 검사중인 적과의 거리가 공격범위 내에 있고,
                 // 현재까지 검사한 적보다 거리가 가까우면
-                if (distance <= attackRange && distance <= closestDistSqr)
+                if (distance <= towerType.states.Range && distance <= closestDistSqr)
                 {
                     closestDistSqr = distance;
                     attackTarget = enemySpawner.EnemyList[i].transform;
@@ -97,7 +101,7 @@ public class TowerWeapon : MonoBehaviour
 
             // 2. target이 공격 범위 안에 있는지 검사 (공격 범위를 벗어나면 새로운 적 탐색)
             float distance = Vector3.Distance(attackTarget.position, transform.position);
-            if (distance > attackRange)
+            if (distance > towerType.states.Range)
             {
                 attackTarget = null;
                 ChangeState(WeaponState.SearchTarget);
@@ -105,7 +109,7 @@ public class TowerWeapon : MonoBehaviour
             }
 
             // 3. attackRate 시간만큼 대기
-            yield return new WaitForSeconds(attackRate);
+            yield return new WaitForSeconds(towerType.states.rate);
 
             // 4. 공격 (발사체 생성)
             SpawnProjectile();
@@ -114,7 +118,7 @@ public class TowerWeapon : MonoBehaviour
     private void SpawnProjectile()
     {
         GameObject clone = Instantiate(bullet, spawnPoint.position, Quaternion.identity);
-        clone.GetComponent<Bullet>().Setup(attackTarget , attackDamage);
+        clone.GetComponent<Bullet>().Setup(attackTarget , towerType.states.damage);
     }
 
 }
