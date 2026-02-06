@@ -25,16 +25,19 @@ public class TowerWeapon : MonoBehaviour
     private EnemySpawner enemySpawner;        // 게임에 존재하는 적 정보 획득용
 
     private TowerType towerType;
+    public SpawnPosition spawnPosition;
+    //private Gold gold;
 
     private void Awake()
     {
         spawnPoint = this.transform;
         towerType = GetComponent<TowerType>();
     }
-    public void Setup(EnemySpawner enemySpawner)
+    public void Setup(EnemySpawner enemySpawner , SpawnPosition spawnPosition)
     {
         this.enemySpawner = enemySpawner;
-
+        this.spawnPosition = spawnPosition;
+        //this.gold = gold;
         // 최초 상태를 WeaponState.SearchTarget으로 설정
         ChangeState(WeaponState.SearchTarget);
     }
@@ -120,5 +123,4 @@ public class TowerWeapon : MonoBehaviour
         GameObject clone = Instantiate(bullet, spawnPoint.position, Quaternion.identity);
         clone.GetComponent<Bullet>().Setup(attackTarget , towerType.states.damage);
     }
-
 }

@@ -1,0 +1,96 @@
+Warrior_4.png
+	size: 1464, 526
+	filter: Linear, Linear
+	pma: true
+Arm_L1
+	bounds: 1376, 145, 64, 68
+	offsets: 5, 5, 74, 78
+	rotate: 90
+Arm_L2
+	bounds: 1377, 211, 80, 79
+	offsets: 8, 9, 93, 93
+Arm_R1
+	bounds: 1229, 423, 62, 80
+	offsets: 5, 5, 73, 90
+	rotate: 90
+Arm_R2
+	bounds: 1311, 390, 93, 95
+BackHair
+	bounds: 2, 13, 511, 425
+	offsets: 3, 1, 514, 430
+	rotate: 90
+Bang_L
+	bounds: 940, 265, 230, 259
+	offsets: 2, 4, 236, 263
+Bang_R
+	bounds: 786, 2, 226, 249
+	offsets: 2, 3, 228, 256
+Body
+	bounds: 1246, 174, 109, 128
+	offsets: 4, 4, 117, 135
+	rotate: 90
+Ear_L
+	bounds: 1014, 9, 213, 254
+	offsets: 2, 5, 219, 262
+Ear_R
+	bounds: 574, 2, 210, 243
+	offsets: 4, 1, 218, 248
+EyeBrow
+	bounds: 1229, 487, 175, 37
+	offsets: 6, 5, 186, 48
+Foot_L
+	bounds: 1406, 458, 56, 66
+	offsets: 4, 3, 64, 71
+Foot_R
+	bounds: 1377, 292, 65, 81
+	offsets: 3, 3, 70, 88
+	rotate: 90
+Hand_L
+	bounds: 1406, 414, 42, 47
+	offsets: 5, 5, 52, 57
+	rotate: 90
+Hand_R
+	bounds: 1406, 359, 37, 31
+	offsets: 5, 5, 47, 41
+Head
+	bounds: 686, 253, 271, 252
+	offsets: 2, 0, 274, 256
+	rotate: 90
+Leg_L1
+	bounds: 1172, 275, 72, 145
+	offsets: 5, 4, 81, 153
+Leg_L2
+	bounds: 1172, 422, 55, 102
+	offsets: 3, 4, 62, 110
+Leg_R1
+	bounds: 1302, 13, 65, 126
+	offsets: 4, 4, 74, 134
+	rotate: 90
+Leg_R2
+	bounds: 429, 3, 85, 100
+	offsets: 3, 23, 99, 127
+	rotate: 90
+Pelvis
+	bounds: 1406, 392, 42, 20
+	offsets: 5, 5, 53, 30
+Scarf
+	bounds: 531, 3, 85, 41
+	offsets: 3, 4, 92, 48
+	rotate: 90
+SideHair_L
+	bounds: 1302, 80, 67, 92
+	offsets: 3, 2, 75, 98
+SideHair_R
+	bounds: 556, 247, 128, 277
+	offsets: 4, 4, 135, 281
+SideTail
+	bounds: 1246, 285, 103, 129
+	offsets: 4, 3, 110, 135
+	rotate: 90
+Sword
+	bounds: 429, 90, 125, 434
+	offsets: 5, 5, 135, 445
+Tail
+	bounds: 1229, 7, 165, 71
+	offsets: 0, 3, 165, 74
+	rotate: 90

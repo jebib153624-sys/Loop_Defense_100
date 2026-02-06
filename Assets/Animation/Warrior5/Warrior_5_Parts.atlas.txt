@@ -1,0 +1,111 @@
+Warrior_5_Parts.png
+	size: 1486, 1047
+	filter: Linear, Linear
+	pma: true
+Arm_L1
+	bounds: 1057, 7, 73, 90
+	offsets: 5, 4, 79, 98
+	rotate: 90
+Arm_L2
+	bounds: 1297, 134, 109, 108
+	offsets: 3, 3, 115, 113
+Arm_R1
+	bounds: 1073, 82, 93, 116
+	offsets: 4, 2, 101, 122
+Arm_R2
+	bounds: 951, 84, 120, 114
+	offsets: 3, 0, 128, 116
+BabyHair
+	bounds: 1168, 39, 99, 122
+	offsets: 4, 1, 103, 127
+	rotate: 90
+Bang_L
+	bounds: 961, 520, 232, 287
+	offsets: 4, 4, 236, 291
+Bang_R
+	bounds: 533, 238, 252, 260
+	offsets: 5, 4, 259, 268
+Belt
+	bounds: 1168, 140, 127, 102
+	offsets: 3, 4, 134, 110
+Body
+	bounds: 760, 2, 189, 203
+	offsets: 3, 2, 195, 213
+Cape
+	bounds: 2, 170, 529, 357
+	offsets: 2, 4, 533, 364
+Cloth_L
+	bounds: 1359, 6, 64, 53
+	offsets: 4, 4, 72, 61
+	rotate: 90
+Cloth_R
+	bounds: 1405, 462, 67, 79
+	offsets: 5, 3, 76, 84
+	rotate: 90
+Ear_L
+	bounds: 556, 5, 231, 202
+	offsets: 2, 5, 237, 211
+	rotate: 90
+Ear_R
+	bounds: 1160, 244, 254, 227
+	offsets: 3, 3, 257, 233
+	rotate: 90
+EyeBrow
+	bounds: 1430, 837, 208, 46
+	offsets: 5, 6, 218, 57
+	rotate: 90
+Foot_L
+	bounds: 951, 6, 76, 104
+	offsets: 4, 4, 84, 111
+	rotate: 90
+Foot_R
+	bounds: 1405, 531, 79, 109
+	offsets: 5, 3, 87, 116
+Hair_Back
+	bounds: 2, 529, 641, 516
+	offsets: 1, 4, 646, 520
+Hand_L1
+	bounds: 1408, 183, 56, 62
+	offsets: 3, 3, 62, 67
+Hand_L2
+	bounds: 1292, 9, 65, 61
+	offsets: 3, 5, 71, 70
+Hand_R
+	bounds: 1389, 296, 71, 73
+	offsets: 4, 1, 78, 76
+Head
+	bounds: 645, 500, 314, 307
+	offsets: 3, 4, 320, 312
+LegDeco_L
+	bounds: 1389, 371, 74, 89
+	offsets: 3, 4, 82, 97
+LegDeco_R
+	bounds: 1292, 72, 118, 60
+	offsets: 5, 4, 125, 74
+Leg_L
+	bounds: 1195, 500, 208, 307
+	offsets: 2, 4, 212, 315
+Leg_R
+	bounds: 988, 200, 170, 318
+	offsets: 4, 4, 177, 324
+Pelvis
+	bounds: 1389, 247, 53, 47
+	offsets: 5, 5, 63, 57
+Scarf
+	bounds: 1405, 642, 165, 79
+	offsets: 4, 2, 174, 85
+	rotate: 90
+SideHair
+	bounds: 2, 5, 163, 312
+	offsets: 4, 4, 169, 320
+	rotate: 90
+SideTail
+	bounds: 787, 207, 199, 291
+	offsets: 0, 3, 201, 298
+Sword
+	bounds: 645, 809, 236, 783
+	offsets: 6, 5, 247, 794
+	rotate: 90
+Tail
+	bounds: 316, 11, 238, 157
+	offsets: 3, 5, 245, 166

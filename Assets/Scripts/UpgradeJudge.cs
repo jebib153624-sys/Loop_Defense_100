@@ -3,14 +3,15 @@ using UnityEngine;
 public class UpgradeJudge : MonoBehaviour
 {
     private TowerType myTowerType;
-    public SummonTower summonTower;
 
     public int myListNum = -1;
+
+    private TowerWeapon weaponState;
+
     private void Start()
     {
         myTowerType = GetComponent<TowerType>();
-        summonTower = FindAnyObjectByType<SummonTower>();
-        myListNum = summonTower.towerPosindex;
+        weaponState = GetComponent<TowerWeapon>();
     }
 
     // 외부(TowerMover)에서 호출하는 합성 체크 함수
@@ -30,7 +31,7 @@ public class UpgradeJudge : MonoBehaviour
 
                 Debug.Log($"합성 성공! 현재 랭크: {other.towerRank}");
 
-                summonTower.towerPosition[myListNum].GetComponent<SpawnPosition>().IsBuildTower--; // 합성 후 드래그한 타워 위치의 빌드 상태 해제
+                weaponState.spawnPosition.IsBuildTower--; // 합성 후 드래그한 타워 위치의 빌드 상태 해제
                 Destroy(this.gameObject); // 드래그하던 나 자신 삭제
                 return true;
             }

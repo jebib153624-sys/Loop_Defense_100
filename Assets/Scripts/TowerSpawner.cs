@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Mono.Cecil;
+using UnityEngine;
 
 public class TowerSpawner : MonoBehaviour
 {
@@ -7,6 +8,11 @@ public class TowerSpawner : MonoBehaviour
 
     [SerializeField]
     private EnemySpawner enemySpawner; // 적정보 받아오려고 
+
+
+    [SerializeField]
+    private Gold gold; // 골드 정보 받아오려고
+
 
     public void SpawnTower(Transform position)
     {
@@ -24,11 +30,11 @@ public class TowerSpawner : MonoBehaviour
         GameObject clone = Instantiate(towerPrefab, position.position, Quaternion.identity);
 
         TowerType towerTypeComp = clone.GetComponent<TowerType>();//타워타입 스크립트 가져오기
-        TowerTypes randomType = (TowerTypes)Random.Range(0, System.Enum.GetValues(typeof(TowerTypes)).Length);//타워타입 랜덤으로 정하기
-        towerTypeComp.towerType = randomType;//타워타입 스크립트에 랜덤으로 정한 타입 넣기
+        //TowerTypes randomType = (TowerTypes)Random.Range(0, System.Enum.GetValues(typeof(TowerTypes)).Length);//타워타입 랜덤으로 정하기
+        towerTypeComp.towerType = TowerTypes.WarriorTower;//타워타입 스크립트에 랜덤으로 정한 타입 넣기
 
         clone.GetComponent<TowerVisual>().UpdateVisual(); //타워 비주얼 업데이트
 
-        clone.GetComponent<TowerWeapon>().Setup(enemySpawner);
+        clone.GetComponent<TowerWeapon>().Setup(enemySpawner , spawnPosition);
     }
 }

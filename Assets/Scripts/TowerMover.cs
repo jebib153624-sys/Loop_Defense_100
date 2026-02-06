@@ -162,6 +162,6 @@ public class TowerMover : MonoBehaviour
         // Gizmos 색상을 녹색으로 설정
         Gizmos.color = Color.green;
         // OverlapCircle과 동일한 위치와 크기로 원을 그림
-        Gizmos.DrawWireSphere(transform.position + clickJudge, 0.15f);
+        Gizmos.DrawWireSphere(transform.position + clickJudge, 0.3f);
     }
 }

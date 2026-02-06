@@ -1,39 +1,54 @@
+using Spine.Unity;
 using UnityEngine;
 
 public class TowerVisual : MonoBehaviour
 {
     [SerializeField] private TowerType towerType;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private TowerSpriteSet[] spriteSets;
+    [SerializeField] private SkeletonAnimation spine;
+    [SerializeField] private TowerSpineSet[] spineSets;
+
+    private SkeletonDataAsset currentSkeleton; // ★ 캐시
 
     private void Awake()
     {
         if (!towerType)
-            towerType = GetComponent<TowerType>();
+            towerType = GetComponentInParent<TowerType>();
 
-        if (!spriteRenderer)
-            spriteRenderer = GetComponent<SpriteRenderer>();
+        if (!spine)
+            spine = GetComponentInChildren<SkeletonAnimation>();
     }
-
+    private void Update()
+    {
+        UpdateVisual();
+    }
     public void UpdateVisual()
     {
-        foreach (var set in spriteSets)
+        foreach (var set in spineSets)
         {
-            if (set.type == towerType.towerType && set.rank == towerType.towerRank)
+            if (set.type == towerType.towerType &&
+                set.rank == towerType.towerRank)
             {
-                spriteRenderer.sprite = set.sprite;
+                // 1. Skeleton이 바뀌었을 때만 교체
+                if (currentSkeleton != set.skeletonData)
+                {
+                    currentSkeleton = set.skeletonData;
+                    spine.skeletonDataAsset = currentSkeleton;
+                    spine.Initialize(true);
+                }
+
+                // 2. 애니메이션은 항상 갱신
+                spine.AnimationState.SetAnimation(0, set.idleAnimation, true);
                 return;
             }
         }
-
-        Debug.LogWarning("해당 Tower 타입/랭크에 맞는 Sprite 없음");
     }
 }
 
 [System.Serializable]
-public class TowerSpriteSet
+public class TowerSpineSet
 {
     public TowerTypes type;
     public TowerRank rank;
-    public Sprite sprite;
+    public SkeletonDataAsset skeletonData;
+    public string idleAnimation;
 }

@@ -27,5 +27,5 @@ public struct States
     public float damage;//공격력
     public float rate;//공격속도
     public float Range;//사거리
-    public int cost;//가격
+    public int sell;//판매가격
 }

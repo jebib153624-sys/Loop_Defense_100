@@ -1,0 +1,33 @@
+Warrior2_Parts.png
+	size: 1071, 296
+	filter: Linear, Linear
+	pma: true
+Arm_L
+	bounds: 745, 34, 94, 68
+	rotate: 90
+Arm_R
+	bounds: 922, 28, 86, 85
+Body
+	bounds: 395, 104, 251, 190
+Ear_L
+	bounds: 922, 115, 147, 179
+Ear_R
+	bounds: 648, 130, 166, 164
+Head
+	bounds: 2, 2, 391, 292
+Leg
+	bounds: 490, 51, 103, 51
+Leg_L
+	bounds: 648, 49, 79, 95
+	rotate: 90
+Leg_R
+	bounds: 395, 30, 72, 93
+	rotate: 90
+Scarp
+	bounds: 1010, 6, 107, 56
+	rotate: 90
+SideTail
+	bounds: 595, 31, 71, 51
+	rotate: 90
+Sword
+	bounds: 816, 33, 104, 261
