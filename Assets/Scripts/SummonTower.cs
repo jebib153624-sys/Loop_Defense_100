@@ -18,7 +18,7 @@ public class SummonTower : MonoBehaviour
 
             if (sp.IsBuildTower < 1)
             {
-                towerSpawner.SpawnTower(towerPosition[i].transform);
+                towerSpawner.SpawnTower(towerPosition[i].transform,sp);
                 towerPosindex = i;
                 return;
             }

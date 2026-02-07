@@ -1,24 +1,32 @@
-using UnityEngine;
 using System;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TowerMover : MonoBehaviour
 {
     private Camera mainCam;
     [SerializeField]
     public bool IsDragging = false;
+    public GameObject synthesisButton; // 합성 버튼 오브젝트
+
+    public bool isClicking;
 
     private Vector3 originalPosition;
     private Vector3 dragOffset;
 
     private Collider2D col;
 
-    public Vector3 clickJudge;
+    public float searchRadius;
+    public Vector3 offsetY;
 
+
+    private SpawnPosition currentSlot; // 현재 점유 중인 슬롯
     void Awake()
     {
         mainCam = Camera.main;
         col = GetComponent<Collider2D>();
+        SetClicking(false);
     }
 
     void Update()
@@ -28,12 +36,15 @@ public class TowerMover : MonoBehaviour
 #else
         HandleTouch();
 #endif
+
+        
     }
 
     // ---------------- PC 테스트용 ----------------
     void HandleMouse()
     {
-        
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
         if (Input.GetMouseButtonDown(0))
         {
             TryPick(Input.mousePosition);
@@ -82,6 +93,8 @@ public class TowerMover : MonoBehaviour
         if (hit.collider != null && hit.collider.gameObject == gameObject)
         {
             IsDragging = true;
+            SetClicking(true);
+            Debug.Log(isClicking);
             originalPosition = transform.position;
             dragOffset = transform.position - (Vector3)worldPos;
 
@@ -89,11 +102,16 @@ public class TowerMover : MonoBehaviour
             col.enabled = false;
             Debug.Log("잡음!!");
         }
+        else
+        {
+            SetClicking(false);
+        }
 
     }
 
     void Drag(Vector2 screenPos)
     {
+        synthesisButton.SetActive(false); // 합성 버튼 숨기기
         if (!IsDragging) return;
         
         Vector3 worldPos = mainCam.ScreenToWorldPoint(screenPos);
@@ -107,61 +125,66 @@ public class TowerMover : MonoBehaviour
         if (!IsDragging) return;
 
         col.enabled = true;
-        Debug.Log("드롭!");
 
-        // 1. 주변 타워 탐색 (반경 0.5f는 타워 크기에 맞춰 조절하세요)
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position + clickJudge, 0.1f);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position + offsetY, searchRadius);
 
-        TowerMover bestTarget = null;
+        Debug.Log("hits length: " + hits.Length);
+
+        foreach (var hit in hits)
+        {
+            Debug.Log("hit: " + hit.name);
+        }
+        SpawnPosition closestSlot = null;
         float closestDistance = float.MaxValue;
 
         foreach (var hit in hits)
         {
-            // 나 자신은 제외
-            if (hit.gameObject == gameObject) continue;
+            SpawnPosition sp = hit.GetComponent<SpawnPosition>();
+            if (sp == null) continue;
 
-            // TowerMover 컴포넌트가 있는지 확인 (타워인지 확인)
-            TowerMover otherMover = hit.GetComponent<TowerMover>();
-            if (otherMover != null)
+            // 빈 슬롯만 허용
+            if (sp.IsBuildTower != 0) continue;
+
+            float dist = Vector2.Distance(transform.position, hit.transform.position);
+
+            if (dist < closestDistance)
             {
-                float dist = Vector2.Distance(transform.position, hit.transform.position);
-                if (dist < closestDistance)
-                {
-                    closestDistance = dist;
-                    bestTarget = otherMover;
-                }
+                closestDistance = dist;
+                closestSlot = sp;
             }
         }
 
-        // 2. 가장 가까운 타워가 있다면 합성 시도
-        if (bestTarget != null)
+        if (closestSlot != null)
         {
-            UpgradeJudge judge = GetComponent<UpgradeJudge>();
-            // 합성 성공 여부 반환 (타입/랭크가 맞는지)
-            bool success = judge.TryUpgrade(bestTarget.gameObject);
+            // 이전 슬롯 비우기
+            if (currentSlot != null)
+                currentSlot.IsBuildTower = 0;
 
-            if (success)
-            {
-                IsDragging = false; // 합성 성공 시 복귀 방지
-                return;
-            }
+            // 새 슬롯 점유
+            transform.position = closestSlot.transform.position;
+            closestSlot.IsBuildTower = 1;
+            currentSlot = closestSlot;
+        }
+        else
+        {
+            transform.position = originalPosition;
         }
 
-        // 3. 합성 실패 시에만 원래 위치로 복귀
-        StartCoroutine(PickCooldownRoutine());
+        IsDragging = false;
+    }
+    public void GetSpawnPosition(SpawnPosition sp) // 현재 점유 중인 슬롯 정보 받기
+    {
+        currentSlot = sp;
     }
 
-    IEnumerator PickCooldownRoutine()
+    public void SetClicking(bool value)
     {
-        yield return new WaitForSeconds(0.01f);
-        IsDragging = false;
-        gameObject.transform.position = originalPosition;
+        isClicking = value;
+        synthesisButton.SetActive(value);
     }
-    private void OnDrawGizmosSelected()
+    void OnDrawGizmos()
     {
-        // Gizmos 색상을 녹색으로 설정
-        Gizmos.color = Color.green;
-        // OverlapCircle과 동일한 위치와 크기로 원을 그림
-        Gizmos.DrawWireSphere(transform.position + clickJudge, 0.3f);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position + offsetY, searchRadius);
     }
 }

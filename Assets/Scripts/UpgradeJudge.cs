@@ -8,6 +8,8 @@ public class UpgradeJudge : MonoBehaviour
 
     private TowerWeapon weaponState;
 
+
+
     private void Start()
     {
         myTowerType = GetComponent<TowerType>();

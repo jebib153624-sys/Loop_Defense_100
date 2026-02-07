@@ -19,7 +19,7 @@ public class TowerVisual : MonoBehaviour
     }
     private void Update()
     {
-        UpdateVisual();
+        //UpdateVisual();
     }
     public void UpdateVisual()
     {
