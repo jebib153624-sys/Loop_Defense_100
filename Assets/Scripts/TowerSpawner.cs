@@ -1,4 +1,6 @@
 ﻿using Mono.Cecil;
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TowerSpawner : MonoBehaviour
@@ -13,6 +15,7 @@ public class TowerSpawner : MonoBehaviour
     [SerializeField]
     private Gold gold; // 골드 정보 받아오려고
 
+    public List<UpgradeJudge> towerList = new List<UpgradeJudge>();
 
     public void SpawnTower(Transform position, SpawnPosition sp)
     {
@@ -28,6 +31,7 @@ public class TowerSpawner : MonoBehaviour
         sp.IsBuildTower++;
 
         GameObject clone = Instantiate(towerPrefab, position.position, Quaternion.identity);
+        towerList.Add(clone.GetComponent<UpgradeJudge>());
         clone.GetComponent<TowerMover>().GetSpawnPosition(sp);//타워무버 스크립트에 스폰포지션 정보 넣기
         //clone.GetComponent<TowerMover>().synthesisButton.SetActive(false);
         TowerType towerTypeComp = clone.GetComponent<TowerType>();//타워타입 스크립트 가져오기

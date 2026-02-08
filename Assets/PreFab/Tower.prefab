@@ -151,7 +151,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 311161572004364607}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -2273531179590025007}
+        m_TargetAssemblyTypeName: UpgradeJudge, Assembly-CSharp
+        m_MethodName: TryUpgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2397772433586315672
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,6 +468,9 @@ MonoBehaviour:
   isClicking: 0
   searchRadius: 0.3
   offsetY: {x: 0, y: 0.2, z: 0}
+  slotLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &-2273531179590025007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,7 +483,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fe5ad649afc46548987d84018116f16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myListNum: -1
 --- !u!114 &3679227499086056212
 MonoBehaviour:
   m_ObjectHideFlags: 0

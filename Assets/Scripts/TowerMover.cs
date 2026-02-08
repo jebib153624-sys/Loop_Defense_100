@@ -43,13 +43,16 @@ public class TowerMover : MonoBehaviour
     // ---------------- PC 테스트용 ----------------
     void HandleMouse()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
-        if (Input.GetMouseButtonDown(0))
+        // Pick만 UI 위에서 막기
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            TryPick(Input.mousePosition);
+            if (Input.GetMouseButtonDown(0))
+            {
+                TryPick(Input.mousePosition);
+            }
         }
 
+        // 드래그 & 드롭은 항상 허용
         if (Input.GetMouseButton(0))
         {
             Drag(Input.mousePosition);
@@ -60,6 +63,7 @@ public class TowerMover : MonoBehaviour
             Drop();
         }
     }
+
 
     // ---------------- 모바일 실제용 ----------------
     void HandleTouch()
@@ -111,7 +115,7 @@ public class TowerMover : MonoBehaviour
 
     void Drag(Vector2 screenPos)
     {
-        synthesisButton.SetActive(false); // 합성 버튼 숨기기
+        //synthesisButton.SetActive(false); // 합성 버튼 숨기기
         if (!IsDragging) return;
         
         Vector3 worldPos = mainCam.ScreenToWorldPoint(screenPos);
@@ -119,21 +123,15 @@ public class TowerMover : MonoBehaviour
 
         transform.position = worldPos + dragOffset;
     }
-
+    [SerializeField] private LayerMask slotLayerMask;
     void Drop()
     {
         if (!IsDragging) return;
-
+        Debug.Log("드롭함수가 실행됨");
         col.enabled = true;
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position + offsetY, searchRadius);
 
-        Debug.Log("hits length: " + hits.Length);
-
-        foreach (var hit in hits)
-        {
-            Debug.Log("hit: " + hit.name);
-        }
         SpawnPosition closestSlot = null;
         float closestDistance = float.MaxValue;
 
@@ -141,9 +139,9 @@ public class TowerMover : MonoBehaviour
         {
             SpawnPosition sp = hit.GetComponent<SpawnPosition>();
             if (sp == null) continue;
-
-            // 빈 슬롯만 허용
-            if (sp.IsBuildTower != 0) continue;
+            Debug.Log("SpawnPosition가 붙은 스크립트를 sp변수에 담았습니다. ");
+            
+            if (sp.IsBuildTower != 0) continue; // 이미 타워가 있는 슬롯은 건너뜁니다.
 
             float dist = Vector2.Distance(transform.position, hit.transform.position);
 
@@ -168,6 +166,7 @@ public class TowerMover : MonoBehaviour
         else
         {
             transform.position = originalPosition;
+            //SetClicking(false);
         }
 
         IsDragging = false;

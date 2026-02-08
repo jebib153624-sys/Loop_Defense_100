@@ -4,11 +4,13 @@ public class UpgradeJudge : MonoBehaviour
 {
     private TowerType myTowerType;
 
-    public int myListNum = -1;
-
     private TowerWeapon weaponState;
 
-
+    private TowerSpawner towerSpawner;
+    private void Awake()
+    {
+        towerSpawner = FindFirstObjectByType<TowerSpawner>();
+    }
 
     private void Start()
     {
@@ -17,27 +19,46 @@ public class UpgradeJudge : MonoBehaviour
     }
 
     // 외부(TowerMover)에서 호출하는 합성 체크 함수
-    public bool TryUpgrade(GameObject target)
+    public void TryUpgrade()
     {
-        TowerType other = target.GetComponent<TowerType>();
+        var list = towerSpawner.towerList;
 
-        if (other != null && other.towerType == myTowerType.towerType && other.towerRank == myTowerType.towerRank)
+        for (int i = 0; i < list.Count; i++)
         {
-            if (other.towerRank < TowerRank.Rank5)
+            UpgradeJudge baseTower = list[i];
+            TowerType baseType = baseTower.GetComponent<TowerType>();
+
+            // Rank5는 합성 불가
+            if (baseType.towerRank == TowerRank.Rank5)
+                continue;
+
+            for (int j = i + 1; j < list.Count; j++)
             {
-                other.towerRank = (TowerRank)((int)other.towerRank + 1);
+                UpgradeJudge targetTower = list[j];
+                TowerType targetType = targetTower.GetComponent<TowerType>();
 
-                // 랭크업 시 시각적 업데이트 (Sprite 변경 등)를 호출하는 코드가 여기 오면 좋습니다.
-                target.GetComponent<TowerVisual>().UpdateVisual();
-                // other.UpdateVisual(); 
+                // target도 Rank5면 스킵
+                if (targetType.towerRank == TowerRank.Rank5)
+                    continue;
 
-                Debug.Log($"합성 성공! 현재 랭크: {other.towerRank}");
+                if (baseType.towerType == targetType.towerType &&
+                    baseType.towerRank == targetType.towerRank)
+                {
+                    Debug.Log("합성 성공!");
 
-                weaponState.spawnPosition.IsBuildTower--; // 합성 후 드래그한 타워 위치의 빌드 상태 해제
-                Destroy(this.gameObject); // 드래그하던 나 자신 삭제
-                return true;
+                    // 랭크 +1 (안전하게)
+                    baseType.towerRank =
+                        (TowerRank)((int)baseType.towerRank + 1);
+
+                    Destroy(targetTower.gameObject);
+                    list.RemoveAt(j);
+
+                    return;
+                }
             }
         }
-        return false;
+
+        Debug.Log("합성 가능한 타워 없음");
     }
+
 }
