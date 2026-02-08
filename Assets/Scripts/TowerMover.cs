@@ -104,7 +104,6 @@ public class TowerMover : MonoBehaviour
 
             // 이동 중 충돌 비활성 (중요)
             col.enabled = false;
-            Debug.Log("잡음!!");
         }
         else
         {
@@ -127,7 +126,7 @@ public class TowerMover : MonoBehaviour
     void Drop()
     {
         if (!IsDragging) return;
-        Debug.Log("드롭함수가 실행됨");
+      
         col.enabled = true;
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position + offsetY, searchRadius);
@@ -139,8 +138,7 @@ public class TowerMover : MonoBehaviour
         {
             SpawnPosition sp = hit.GetComponent<SpawnPosition>();
             if (sp == null) continue;
-            Debug.Log("SpawnPosition가 붙은 스크립트를 sp변수에 담았습니다. ");
-            
+     
             if (sp.IsBuildTower != 0) continue; // 이미 타워가 있는 슬롯은 건너뜁니다.
 
             float dist = Vector2.Distance(transform.position, hit.transform.position);

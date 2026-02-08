@@ -28,18 +28,29 @@ public class TowerWeapon : MonoBehaviour
     public SpawnPosition spawnPosition;
     //private Gold gold;
 
+
     private void Awake()
     {
         spawnPoint = this.transform;
         towerType = GetComponent<TowerType>();
+
     }
-    public void Setup(EnemySpawner enemySpawner , SpawnPosition spawnPosition)
+    public void Setup(EnemySpawner enemySpawner, SpawnPosition spawnPosition)
     {
         this.enemySpawner = enemySpawner;
         this.spawnPosition = spawnPosition;
         //this.gold = gold;
         // 최초 상태를 WeaponState.SearchTarget으로 설정
-        ChangeState(WeaponState.SearchTarget);
+        if (towerType.towerType == TowerTypes.WarriorTower)
+        {
+            // ChangeState(WeaponState.SearchTarget);
+            StartCoroutine(AttackTowerRoutine());
+
+        }
+        else
+        {
+            StartCoroutine(SlowTowerRoutine());
+        }
     }
 
     public void ChangeState(WeaponState newState)
@@ -52,14 +63,8 @@ public class TowerWeapon : MonoBehaviour
         StartCoroutine(weaponState.ToString());
     }// 아 그니까 이함수는 지금까지 실행중인 코루틴 멈추고 매개변수로 새롭게 가져온 코루틴을 실행해! 라는뜻 
 
-    private void Update()
-    {
-        if (attackTarget != null)
-        {
-           
-        }
-    }
-    private IEnumerator SearchTarget()
+ 
+    /*private IEnumerator SearchTarget()
     {
         while (true)
         {
@@ -117,10 +122,78 @@ public class TowerWeapon : MonoBehaviour
             // 4. 공격 (발사체 생성)
             SpawnProjectile();
         }
-    }
+    }*/
     private void SpawnProjectile()
     {
         GameObject clone = Instantiate(bullet, spawnPoint.position, Quaternion.identity);
-        clone.GetComponent<Bullet>().Setup(attackTarget , towerType.states.damage);
+        clone.GetComponent<Bullet>().Setup(attackTarget, towerType.states.damage);
+    }
+    private void AttackTower()
+    {
+        for (int i = 0; i < enemySpawner.EnemyList.Count; ++i)
+        {
+            Enemy enemy = enemySpawner.EnemyList[i];
+            if (enemy == null) continue;
+
+            float distance = Vector3.Distance(
+                enemy.transform.position,
+                transform.position
+            );
+
+            if (distance < towerType.states.Range)
+            {
+                enemySpawner.EnemyList[i].GetComponent<EnemyHP>().TakeDamage(towerType.states.damage);
+            }
+          
+        }
+    }
+    private void SlowTower()
+    {
+        for (int i = 0; i < enemySpawner.EnemyList.Count; ++i)
+        {
+            Enemy enemy = enemySpawner.EnemyList[i];
+            if (enemy == null) continue;
+
+            float distance = Vector3.Distance(
+                enemy.transform.position,
+                transform.position
+            );
+
+            if (distance < towerType.states.Range)
+            {
+                // 20% 슬로우라면 0.8배 속도
+                enemy.currentSpeed =
+                    enemy.moveSpeed * (1f - towerType.states.slow);
+            }
+            else
+            {
+                // 범위 밖이면 원래 속도로 복구
+                enemy.currentSpeed = enemy.moveSpeed;
+            }
+        }
+    }
+
+    IEnumerator SlowTowerRoutine()
+    {
+        while (true)
+        {
+            SlowTower();
+            Debug.Log("슬로우 타워 작동 중");
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+    IEnumerator AttackTowerRoutine()
+    {
+        while (true)
+        {
+            AttackTower();
+            
+            yield return new WaitForSeconds(towerType.states.rate);
+        }
+    }
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position , towerType.states.Range);
     }
 }

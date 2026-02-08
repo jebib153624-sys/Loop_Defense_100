@@ -1,9 +1,9 @@
 {
 "skeleton": {
-	"hash": "tb3wPikylf8",
+	"hash": "+amDK6eWHBw",
 	"spine": "4.2.43",
 	"x": -348,
-	"y": 14.22,
+	"y": -114.45,
 	"width": 654.09,
 	"height": 798.02,
 	"images": "../4/images/",
@@ -11,7 +11,7 @@
 },
 "bones": [
 	{ "name": "root", "color": "310bffff" },
-	{ "name": "Root1", "parent": "root", "x": -12.04, "y": 241.35, "color": "310bffff" },
+	{ "name": "Root1", "parent": "root", "x": -12.04, "y": 112.68, "color": "310bffff" },
 	{
 		"name": "Body1",
 		"parent": "Root1",
@@ -536,8 +536,8 @@
 		"y": 1.85,
 		"color": "ff1ad5ff"
 	},
-	{ "name": "Leg_L", "parent": "root", "x": -47.79, "y": 65.37, "color": "310bffff", "icon": "ik" },
-	{ "name": "Leg_R", "parent": "root", "x": 55.81, "y": 78.6, "color": "310bffff", "icon": "ik" }
+	{ "name": "Leg_L", "parent": "root", "x": -47.79, "y": -63.3, "color": "310bffff", "icon": "ik" },
+	{ "name": "Leg_R", "parent": "root", "x": 55.81, "y": -50.06, "color": "310bffff", "icon": "ik" }
 ],
 "slots": [
 	{ "name": "Sword", "bone": "Sword", "attachment": "Sword" },

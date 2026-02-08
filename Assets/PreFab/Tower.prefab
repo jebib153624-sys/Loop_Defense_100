@@ -497,11 +497,64 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerType: 0
   towerRank: 0
-  states:
-    damage: 1
-    rate: 1.5
+  warriorRankStates:
+  - damage: 1
+    rate: 0.5
+    Range: 1
+    sell: 100
+    slow: 0
+  - damage: 1.5
+    rate: 0.4
+    Range: 1
+    sell: 200
+    slow: 0
+  - damage: 0
+    rate: 0
+    Range: 0
+    sell: 0
+    slow: 0
+  - damage: 0
+    rate: 0
+    Range: 0
+    sell: 0
+    slow: 0
+  - damage: 0
+    rate: 0
+    Range: 0
+    sell: 0
+    slow: 0
+  icerankStates:
+  - damage: 0
+    rate: 0
     Range: 2
     sell: 0
+    slow: 0.5
+  - damage: 0
+    rate: 2
+    Range: 0
+    sell: 0
+    slow: 0.6
+  - damage: 0
+    rate: 2
+    Range: 0
+    sell: 0
+    slow: 0.7
+  - damage: 0
+    rate: 2
+    Range: 0
+    sell: 0
+    slow: 0.8
+  - damage: 0
+    rate: 0
+    Range: 2
+    sell: 0
+    slow: 0.9
+  states:
+    damage: 1
+    rate: 0.5
+    Range: 2
+    sell: 0
+    slow: 0
 --- !u!50 &-8119171342654232546
 Rigidbody2D:
   serializedVersion: 5
@@ -583,15 +636,15 @@ MonoBehaviour:
   - type: 0
     rank: 0
     skeletonData: {fileID: 11400000, guid: 1eff57d5763901445a9679fc28bd5f7a, type: 2}
-    idleAnimation: Warrior1_idle
+    idleAnimation: Warrior1_Idle
   - type: 0
     rank: 1
     skeletonData: {fileID: 11400000, guid: 240fa82e7a5771541abd6e1bd3b17c58, type: 2}
     idleAnimation: Warrior2_Idle
   - type: 0
     rank: 2
-    skeletonData: {fileID: 11400000, guid: 240fa82e7a5771541abd6e1bd3b17c58, type: 2}
-    idleAnimation: Warrior2_Idle
+    skeletonData: {fileID: 11400000, guid: de173e32461d9a84e9581699e9c1a6ef, type: 2}
+    idleAnimation: Warrior3_Idle
   - type: 0
     rank: 3
     skeletonData: {fileID: 11400000, guid: 07825f0e1b48cf14a9da1a7013c69fe5, type: 2}

@@ -35,8 +35,10 @@ public class TowerSpawner : MonoBehaviour
         clone.GetComponent<TowerMover>().GetSpawnPosition(sp);//타워무버 스크립트에 스폰포지션 정보 넣기
         //clone.GetComponent<TowerMover>().synthesisButton.SetActive(false);
         TowerType towerTypeComp = clone.GetComponent<TowerType>();//타워타입 스크립트 가져오기
-        //TowerTypes randomType = (TowerTypes)Random.Range(0, System.Enum.GetValues(typeof(TowerTypes)).Length);//타워타입 랜덤으로 정하기
-        towerTypeComp.towerType = TowerTypes.WarriorTower;//타워타입 스크립트에 랜덤으로 정한 타입 넣기
+        TowerTypes randomType = (TowerTypes)Random.Range(0, System.Enum.GetValues(typeof(TowerTypes)).Length);//타워타입 랜덤으로 정하기
+        towerTypeComp.towerType = randomType;//타워타입 스크립트에 랜덤으로 정한 타입 넣기
+
+        towerTypeComp.ApplyStats(); //타워 스탯 적용
 
         clone.GetComponent<TowerVisual>().UpdateVisual(); //타워 비주얼 업데이트
 

@@ -21,44 +21,37 @@ public class UpgradeJudge : MonoBehaviour
     // 외부(TowerMover)에서 호출하는 합성 체크 함수
     public void TryUpgrade()
     {
-        var list = towerSpawner.towerList;
+        if (myTowerType.towerRank >= TowerRank.Rank5)
+            return;
 
-        for (int i = 0; i < list.Count; i++)
+        foreach (UpgradeJudge other in towerSpawner.towerList)
         {
-            UpgradeJudge baseTower = list[i];
-            TowerType baseType = baseTower.GetComponent<TowerType>();
-
-            // Rank5는 합성 불가
-            if (baseType.towerRank == TowerRank.Rank5)
+            if (other == this)
                 continue;
 
-            for (int j = i + 1; j < list.Count; j++)
-            {
-                UpgradeJudge targetTower = list[j];
-                TowerType targetType = targetTower.GetComponent<TowerType>();
+            TowerType otherType = other.GetComponent<TowerType>(); // 다른 타워의 TowerType 정보 가져오기
 
-                // target도 Rank5면 스킵
-                if (targetType.towerRank == TowerRank.Rank5)
-                    continue;
+            // 같은 타워 + 같은 랭크 조건
+            if (otherType.towerType != myTowerType.towerType)
+                continue;
 
-                if (baseType.towerType == targetType.towerType &&
-                    baseType.towerRank == targetType.towerRank)
-                {
-                    Debug.Log("합성 성공!");
+            if (otherType.towerRank != myTowerType.towerRank)
+                continue;
 
-                    // 랭크 +1 (안전하게)
-                    baseType.towerRank =
-                        (TowerRank)((int)baseType.towerRank + 1);
+            // ===== 합성 실행 =====
 
-                    Destroy(targetTower.gameObject);
-                    list.RemoveAt(j);
+            // 랭크 +1
+            myTowerType.towerRank++;
 
-                    return;
-                }
-            }
+            // 리스트에서 제거
+            towerSpawner.towerList.Remove(other);
+
+            // 상대 파괴
+            GetComponent<TowerVisual>().UpdateVisual();// 비주얼 업데이트
+            other.GetComponent<TowerWeapon>().spawnPosition.IsBuildTower--;// 스폰 가능한 포지션으로 변경 
+            Destroy(other.gameObject);
+            Debug.Log("합성 성공!");
+            return;
         }
-
-        Debug.Log("합성 가능한 타워 없음");
     }
-
 }
