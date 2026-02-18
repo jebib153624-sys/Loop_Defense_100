@@ -1,6 +1,7 @@
 Goblin_Parts.png
 	size: 550, 1047
 	filter: Linear, Linear
+	pma: true
 Arm_L1
 	bounds: 173, 2, 167, 193
 	rotate: 90

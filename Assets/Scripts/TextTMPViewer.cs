@@ -7,6 +7,8 @@ public class TextTMPViewer : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI textEnemyCount; // 적 카운트 텍스트 UI
     [SerializeField]
+    private TextMeshProUGUI textEnemySliderCount; // 적 카운트 텍스트 UI
+    [SerializeField]
     private TextMeshProUGUI textGold;       // 골드 텍스트 UI
     [SerializeField]
     private TextMeshProUGUI textEnergy;       // 에너지 텍스트 UI
@@ -50,6 +52,6 @@ public class TextTMPViewer : MonoBehaviour
         // 00:00 형식으로 출력
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-
+        textEnemySliderCount.text = (playerHP.currentEnemy + " / 100").ToString();
     }
 }

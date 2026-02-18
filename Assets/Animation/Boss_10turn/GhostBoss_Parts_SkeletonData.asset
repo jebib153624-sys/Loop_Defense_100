@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atlasAssets:
   - {fileID: 11400000, guid: f9e93a2280ce0134191fcb78293dbada, type: 2}
-  scale: 0.01
+  scale: 0.005
   skeletonJSON: {fileID: 4900000, guid: ca02fe563a471d444bc2f86d5284a1bc, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
