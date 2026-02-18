@@ -1,0 +1,17 @@
+{
+"skeleton": { "hash": "KCBZAwn3jKI", "spine": "4.2.43" },
+"bones": [
+	{ "name": "root" }
+],
+"animations": {
+	"animation": {
+		"bones": {
+			"root": {
+				"translate": [
+					{ "time": 1 }
+				]
+			}
+		}
+	}
+}
+}

@@ -49,6 +49,7 @@ public class UpgradeJudge : MonoBehaviour
             // 상대 파괴
             GetComponent<TowerVisual>().UpdateVisual();// 비주얼 업데이트
             other.GetComponent<TowerWeapon>().spawnPosition.IsBuildTower--;// 스폰 가능한 포지션으로 변경 
+            myTowerType.ApplyStats();// 스탯 적용
             Destroy(other.gameObject);
             Debug.Log("합성 성공!");
             return;

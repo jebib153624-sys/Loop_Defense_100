@@ -1,49 +1,49 @@
 Warrior1_Parts.png
-	size: 345, 542
-	filter: Linear, Linear
-	pma: true
+size:345,542
+filter:Linear,Linear
+pma:true
 Arm_L1
-	bounds: 2, 2, 70, 64
-	offsets: 4, 5, 78, 73
+bounds:2,2,70,64
+offsets:4,5,78,73
 Arm_L2
-	bounds: 264, 403, 77, 70
-	offsets: 3, 3, 84, 76
+bounds:264,403,77,70
+offsets:3,3,84,76
 Arm_R1
-	bounds: 264, 354, 52, 47
-	offsets: 3, 4, 59, 54
+bounds:264,354,52,47
+offsets:3,4,59,54
 Arm_Rr2
-	bounds: 74, 6, 77, 60
-	offsets: 3, 4, 83, 66
+bounds:74,6,77,60
+offsets:3,4,83,66
 Body
-	bounds: 2, 102, 141, 170
-	offsets: 80, 0, 221, 319
-	rotate: 90
+bounds:2,102,141,170
+offsets:80,0,221,319
+rotate:90
 Ear_L
-	bounds: 174, 68, 139, 168
-	offsets: 2, 1, 145, 172
-	rotate: 90
+bounds:174,68,139,168
+offsets:2,1,145,172
+rotate:90
 Ear_R
-	bounds: 211, 209, 131, 143
-	offsets: 5, 6, 136, 153
+bounds:211,209,131,143
+offsets:5,6,136,153
 Face
-	bounds: 2, 245, 207, 186
-	offsets: 2, 0, 212, 191
+bounds:2,245,207,186
+offsets:2,0,212,191
 Leg_L
-	bounds: 264, 475, 65, 79
-	offsets: 1, 2, 70, 85
-	rotate: 90
+bounds:264,475,65,79
+offsets:1,2,70,85
+rotate:90
 Leg_R
-	bounds: 270, 12, 54, 72
-	offsets: 4, 2, 63, 79
-	rotate: 90
+bounds:270,12,54,72
+offsets:4,2,63,79
+rotate:90
 Scarf
-	bounds: 153, 9, 115, 57
-	offsets: 3, 3, 123, 64
+bounds:153,9,115,57
+offsets:3,3,123,64
 ScarfRibbon
-	bounds: 211, 354, 77, 51
-	offsets: 3, 3, 83, 58
-	rotate: 90
+bounds:211,354,77,51
+offsets:3,3,83,58
+rotate:90
 Sword
-	bounds: 2, 433, 107, 260
-	offsets: 5, 6, 117, 272
-	rotate: 90
+bounds:2,433,107,260
+offsets:5,6,117,272
+rotate:90

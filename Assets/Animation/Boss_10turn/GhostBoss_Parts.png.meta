@@ -1,0 +1,715 @@
+fileFormatVersion: 2
+guid: 19edefdd60238ab47b24962e9e30407e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6409654068349912117
+    second: GhostBoss_Parts_0
+  - first:
+      213: -6089447569440877039
+    second: GhostBoss_Parts_1
+  - first:
+      213: 4539915650725331309
+    second: GhostBoss_Parts_2
+  - first:
+      213: 7486433646267508670
+    second: GhostBoss_Parts_3
+  - first:
+      213: 823242131751594204
+    second: GhostBoss_Parts_4
+  - first:
+      213: -2139007611089155079
+    second: GhostBoss_Parts_5
+  - first:
+      213: -7614250724518445900
+    second: GhostBoss_Parts_6
+  - first:
+      213: 8544616659214712127
+    second: GhostBoss_Parts_7
+  - first:
+      213: 6996327013644254490
+    second: GhostBoss_Parts_8
+  - first:
+      213: 7233969684883871186
+    second: GhostBoss_Parts_9
+  - first:
+      213: 8384533427012436760
+    second: GhostBoss_Parts_10
+  - first:
+      213: -3262676172655455738
+    second: GhostBoss_Parts_11
+  - first:
+      213: 7898745212851369517
+    second: GhostBoss_Parts_12
+  - first:
+      213: -1079161649314392827
+    second: GhostBoss_Parts_13
+  - first:
+      213: 3086810435936052410
+    second: GhostBoss_Parts_14
+  - first:
+      213: -3307842011512519148
+    second: GhostBoss_Parts_15
+  - first:
+      213: -4952982781638295803
+    second: GhostBoss_Parts_16
+  - first:
+      213: 7203392622742364778
+    second: GhostBoss_Parts_17
+  - first:
+      213: -92199521810293100
+    second: GhostBoss_Parts_18
+  - first:
+      213: -2249796817102966529
+    second: GhostBoss_Parts_19
+  - first:
+      213: -5873106671958015939
+    second: GhostBoss_Parts_20
+  - first:
+      213: -6894871894816840032
+    second: GhostBoss_Parts_21
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 0
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 0
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 0
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GhostBoss_Parts_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 544
+        width: 170
+        height: 201
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcbbddaa5955c07a0800000000000000
+      internalID: -6409654068349912117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_1
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 545
+        width: 142
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1165c19e2bfed7ba0800000000000000
+      internalID: -6089447569440877039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_2
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 541
+        width: 112
+        height: 194
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6148b71b35010f30800000000000000
+      internalID: 4539915650725331309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_3
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 542
+        width: 187
+        height: 186
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb7ae488cb725e760800000000000000
+      internalID: 7486433646267508670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_4
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 485
+        width: 436
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd8603b6b5ebc6b00800000000000000
+      internalID: 823242131751594204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_5
+      rect:
+        serializedVersion: 2
+        x: 1077
+        y: 463
+        width: 314
+        height: 266
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fb8c2129e7b052e0800000000000000
+      internalID: -2139007611089155079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_6
+      rect:
+        serializedVersion: 2
+        x: 1393
+        y: 679
+        width: 82
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bc315ede4fb45690800000000000000
+      internalID: -7614250724518445900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_7
+      rect:
+        serializedVersion: 2
+        x: 1506
+        y: 675
+        width: 109
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3db06a8493949670800000000000000
+      internalID: 8544616659214712127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_8
+      rect:
+        serializedVersion: 2
+        x: 1709
+        y: 477
+        width: 148
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1d3cbcc952f71160800000000000000
+      internalID: 6996327013644254490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_9
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 1
+        width: 200
+        height: 541
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d59277e919346460800000000000000
+      internalID: 7233969684883871186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_10
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 1
+        width: 228
+        height: 534
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 813077c8ab8db5470800000000000000
+      internalID: 8384533427012436760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_11
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 1
+        width: 452
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6029dbfae45a8b2d0800000000000000
+      internalID: -3262676172655455738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_12
+      rect:
+        serializedVersion: 2
+        x: 1392
+        y: 461
+        width: 112
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d26b257fbeafd9d60800000000000000
+      internalID: 7898745212851369517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_13
+      rect:
+        serializedVersion: 2
+        x: 1504
+        y: 461
+        width: 91
+        height: 214
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5051465923c0601f0800000000000000
+      internalID: -1079161649314392827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_14
+      rect:
+        serializedVersion: 2
+        x: 1595
+        y: 459
+        width: 114
+        height: 213
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab4efe2acbd86da20800000000000000
+      internalID: 3086810435936052410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_15
+      rect:
+        serializedVersion: 2
+        x: 1785
+        y: 359
+        width: 115
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 416ceaa573f2812d0800000000000000
+      internalID: -3307842011512519148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_16
+      rect:
+        serializedVersion: 2
+        x: 904
+        y: 3
+        width: 301
+        height: 455
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50fb2d1f668734bb0800000000000000
+      internalID: -4952982781638295803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_17
+      rect:
+        serializedVersion: 2
+        x: 1211
+        y: 2
+        width: 215
+        height: 454
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a626a38dc6797f360800000000000000
+      internalID: 7203392622742364778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_18
+      rect:
+        serializedVersion: 2
+        x: 1434
+        y: 359
+        width: 102
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49e590ef50178bef0800000000000000
+      internalID: -92199521810293100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_19
+      rect:
+        serializedVersion: 2
+        x: 1537
+        y: 354
+        width: 123
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff0f5cbf6bd17c0e0800000000000000
+      internalID: -2249796817102966529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_20
+      rect:
+        serializedVersion: 2
+        x: 1660
+        y: 354
+        width: 120
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3047f159988e7ea0800000000000000
+      internalID: -5873106671958015939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GhostBoss_Parts_21
+      rect:
+        serializedVersion: 2
+        x: 1436
+        y: 6
+        width: 420
+        height: 343
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a62e91da8e7050a0800000000000000
+      internalID: -6894871894816840032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      GhostBoss_Parts_0: -6409654068349912117
+      GhostBoss_Parts_1: -6089447569440877039
+      GhostBoss_Parts_10: 8384533427012436760
+      GhostBoss_Parts_11: -3262676172655455738
+      GhostBoss_Parts_12: 7898745212851369517
+      GhostBoss_Parts_13: -1079161649314392827
+      GhostBoss_Parts_14: 3086810435936052410
+      GhostBoss_Parts_15: -3307842011512519148
+      GhostBoss_Parts_16: -4952982781638295803
+      GhostBoss_Parts_17: 7203392622742364778
+      GhostBoss_Parts_18: -92199521810293100
+      GhostBoss_Parts_19: -2249796817102966529
+      GhostBoss_Parts_2: 4539915650725331309
+      GhostBoss_Parts_20: -5873106671958015939
+      GhostBoss_Parts_21: -6894871894816840032
+      GhostBoss_Parts_3: 7486433646267508670
+      GhostBoss_Parts_4: 823242131751594204
+      GhostBoss_Parts_5: -2139007611089155079
+      GhostBoss_Parts_6: -7614250724518445900
+      GhostBoss_Parts_7: 8544616659214712127
+      GhostBoss_Parts_8: 6996327013644254490
+      GhostBoss_Parts_9: 7233969684883871186
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

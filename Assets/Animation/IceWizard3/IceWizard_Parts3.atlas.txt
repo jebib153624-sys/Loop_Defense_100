@@ -1,0 +1,71 @@
+IceWizard_Parts3.png
+	size: 1412, 337
+	filter: Linear, Linear
+	pma: true
+Arm_L1
+	bounds: 1241, 62, 102, 48
+	offsets: 5, 6, 113, 60
+Arm_L2
+	bounds: 1338, 220, 115, 72
+	offsets: 3, 3, 122, 77
+	rotate: 90
+Arm_R1
+	bounds: 1338, 162, 56, 67
+	offsets: 5, 5, 66, 77
+	rotate: 90
+Arm_R2
+	bounds: 1241, 112, 82, 76
+	offsets: 6, 5, 98, 86
+Body
+	bounds: 895, 19, 105, 138
+	offsets: 4, 5, 120, 148
+Ear_L
+	bounds: 1080, 164, 157, 171
+	offsets: 1, 5, 158, 179
+Ear_R
+	bounds: 895, 159, 183, 176
+	offsets: 1, 0, 187, 180
+Hand_R
+	bounds: 350, 4, 50, 41
+	offsets: 5, 5, 60, 51
+Head
+	bounds: 513, 12, 380, 323
+	offsets: 5, 5, 390, 333
+Leg_L1
+	bounds: 1168, 2, 58, 80
+	offsets: 5, 5, 69, 90
+	rotate: 90
+Leg_L2
+	bounds: 1345, 67, 61, 93
+	offsets: 5, 5, 71, 103
+Leg_R1
+	bounds: 1250, 7, 53, 88
+	offsets: 5, 5, 63, 98
+	rotate: 90
+Leg_R2
+	bounds: 1168, 64, 71, 98
+	offsets: 5, 5, 81, 111
+SideTail_1
+	bounds: 1068, 39, 98, 118
+	offsets: 4, 2, 102, 124
+SideTail_2
+	bounds: 2, 2, 132, 289
+	offsets: 3, 3, 136, 296
+	rotate: 90
+Skirt
+	bounds: 1239, 190, 97, 145
+	offsets: 4, 4, 103, 153
+Sleeve1_R
+	bounds: 293, 2, 55, 132
+	offsets: 3, 4, 60, 139
+Sleeve2_R
+	bounds: 1002, 21, 64, 136
+	offsets: 6, 3, 75, 143
+Sleeve_L
+	bounds: 350, 47, 87, 134
+	offsets: 5, 3, 96, 142
+	rotate: 90
+Staff
+	bounds: 2, 136, 199, 509
+	offsets: 5, 5, 209, 519
+	rotate: 90

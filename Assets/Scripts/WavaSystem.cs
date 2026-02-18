@@ -1,26 +1,55 @@
+using System.Collections;
 using UnityEngine;
 
 public class WavaSystem : MonoBehaviour
 {
     [SerializeField]
-    public Wava[] wavas; // 웨이브 배열
-    [SerializeField]
-    private EnemySpawner enemySpawner; // 적 스포너
-    public int currentWavaIndex = -1; // 현재 웨이브 인덱스
+    public Wava[] wavas;
 
-    public void StartWave()
+    [SerializeField]
+    private EnemySpawner enemySpawner;
+
+    public int currentWavaIndex = -1;
+
+    public float timeBetweenWaves = 10f; // 웨이브 간 대기 시간
+    private void Start()
     {
-        if (enemySpawner.EnemyList.Count == 0 && currentWavaIndex < wavas.Length - 1) // 적이 모두 처치되고 다음 웨이브가 존재할 때
+        StartCoroutine(WaveLoop());
+    }
+
+    private IEnumerator WaveLoop()
+    {
+        yield return new WaitForSeconds(10f);
+        while (currentWavaIndex < wavas.Length - 1)
         {
-            currentWavaIndex++; // 웨이브 인덱스 증가 (시작 인덱스가 -1이기 떄문)
-            enemySpawner.StartWave(wavas[currentWavaIndex]);
+            currentWavaIndex++;
+
+            Wava currentWave = wavas[currentWavaIndex];
+
+            // 다음 웨이브 duration (없으면 0)
+            float nextWaveDuration = 0f;
+            if (currentWavaIndex + 1 < wavas.Length)
+            {
+                nextWaveDuration = wavas[currentWavaIndex + 1].waveDuration;
+            }
+
+            enemySpawner.StartWave(currentWave);
+
+            timeBetweenWaves = currentWave.waveDuration + nextWaveDuration;
+
+            yield return new WaitForSeconds(currentWave.waveDuration);
         }
+
+        Debug.Log("모든 웨이브 종료!");
     }
 }
+
 [System.Serializable]
 public struct Wava
 {
-    public float spawnTime; // 현제 웨이브 적 생성 주기
-    public int maxEnemyCount; // 현제 웨이브 적 최대 생성 수
-    public GameObject[] enemyPrefab; // 현제 웨이브 적 프리팹
+    public float spawnTime;        // 적 생성 주기
+    public int maxEnemyCount;      // 최대 생성 수
+    public GameObject[] enemyPrefab;
+
+    public float waveDuration;     // 웨이브 지속 시간 (추가됨)
 }

@@ -160,6 +160,7 @@ public class TowerMover : MonoBehaviour
             transform.position = closestSlot.transform.position;
             closestSlot.IsBuildTower = 1;
             currentSlot = closestSlot;
+            SetClicking(false);
         }
         else
         {

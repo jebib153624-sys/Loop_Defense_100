@@ -1,0 +1,79 @@
+GhostBoss_Parts.png
+	size: 1905, 746
+	filter: Linear, Linear
+	pma: true
+Arm_L
+	bounds: 1432, 393, 351, 427
+	offsets: 0, 1, 351, 428
+	rotate: 90
+Arm_R
+	bounds: 1211, 286, 219, 458
+	offsets: 4, 4, 223, 462
+Bang
+	bounds: 1073, 13, 318, 270
+	offsets: 0, 4, 322, 274
+Body
+	bounds: 1710, 66, 148, 205
+	offsets: 5, 2, 156, 210
+Chain
+	bounds: 1505, 3, 114, 67
+	offsets: 3, 5, 117, 76
+Choker
+	bounds: 1596, 75, 211, 112
+	offsets: 17, 5, 234, 122
+	rotate: 90
+Cloth_L
+	bounds: 1432, 286, 104, 105
+	offsets: 2, 0, 110, 109
+Cloth_R
+	bounds: 1393, 8, 59, 86
+	offsets: 4, 0, 65, 90
+	rotate: 90
+Ghost1
+	bounds: 443, 16, 189, 186
+	offsets: 3, 4, 194, 197
+	rotate: 90
+Ghost2
+	bounds: 2, 2, 173, 201
+	offsets: 0, 3, 181, 209
+HairPin_L
+	bounds: 1538, 288, 103, 121
+	offsets: 5, 5, 113, 131
+	rotate: 90
+HairPin_R
+	bounds: 1661, 295, 96, 118
+	offsets: 5, 5, 107, 129
+	rotate: 90
+Hair_T
+	bounds: 1781, 273, 122, 118
+	offsets: 0, 0, 123, 119
+Head
+	bounds: 448, 267, 477, 450
+	offsets: 5, 5, 487, 460
+	rotate: 90
+Leg_L1
+	bounds: 1393, 69, 110, 215
+	offsets: 5, 5, 120, 225
+Leg_L2
+	bounds: 177, 2, 145, 201
+	offsets: 5, 2, 150, 205
+Leg_R1
+	bounds: 1505, 72, 89, 212
+	offsets: 5, 5, 99, 222
+Leg_R2
+	bounds: 324, 7, 198, 117
+	offsets: 4, 3, 202, 120
+	rotate: 90
+SideBang_L
+	bounds: 900, 285, 309, 459
+	offsets: 0, 3, 309, 463
+SideBang_R
+	bounds: 631, 28, 237, 440
+	offsets: 0, 4, 240, 444
+	rotate: 90
+TwinTail_L
+	bounds: 210, 207, 236, 537
+	offsets: 0, 6, 236, 543
+TwinTail_R
+	bounds: 2, 205, 206, 539
+	offsets: 2, 5, 208, 574

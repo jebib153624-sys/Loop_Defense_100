@@ -1,63 +1,67 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Collections; 
 using UnityEngine;
+using Spine.Unity;
 
 public class EnemyHP : MonoBehaviour
 {
-    [SerializeField]
-    private float maxHP;          // 최대 체력
-    private float currentHP;      // 현재 체력
-    private bool isDie = false;   // 적이 사망 상태이면 isDie를 true로 설정
+    [SerializeField] private float maxHP;
+    private float currentHP;
+    private bool isDie = false;
+
     private Enemy enemy;
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer spriteRenderer;         // 스프라이트용(호환)
+    private SkeletonAnimation skeletonAnimation;    // 스파인용
 
     public float MaxHP => maxHP;
     public float CurrentHP => currentHP;
 
     private void Awake()
     {
-        currentHP = maxHP;                            // 현재 체력을 최대 체력과 같게 설정
+        currentHP = maxHP;
         enemy = GetComponent<Enemy>();
+
         spriteRenderer = GetComponent<SpriteRenderer>();
+        skeletonAnimation = GetComponentInChildren<SkeletonAnimation>(); // 스파인이 자식일 수 있음
     }
 
     public void TakeDamage(float damage)
     {
-        // Tip. 적의 체력이 damage 만큼 감소해서 죽을 상황일 때 여러 타워의 공격을 동시에 받으면
-        // enemy.OnDie() 함수가 여러 번 실행될 수 있다.
+        if (isDie) return;
 
-        // 현재 적의 상태가 사망 상태이면 아래 코드를 실행하지 않는다.
-        if (isDie == true) return;
-
-        // 현재 체력을 damage만큼 감소
         currentHP -= damage;
 
-        StopCoroutine("HitAlphaAnimation");
-        StartCoroutine("HitAlphaAnimation");
+        StopCoroutine(HitFlashAnimation());
+        StartCoroutine(HitFlashAnimation());
 
-        // 체력이 0이하 = 적 캐릭터 사망
         if (currentHP <= 0)
         {
             isDie = true;
-            // 적 캐릭터 사망
             enemy.Ondie();
         }
     }
-    private IEnumerator HitAlphaAnimation()
+
+    private IEnumerator HitFlashAnimation()
     {
-        // 현재 적의 색상을 color 변수에 저장
-        Color color = spriteRenderer.color;
+        if (skeletonAnimation != null && skeletonAnimation.Skeleton != null)
+        {
+            // 기본색 저장
+            var baseColor = skeletonAnimation.Skeleton.GetColor();
 
-        // 적의 투명도를 40%로 설정
-        color.a = 0.4f;
-        spriteRenderer.color = color;
+            // 피격 틴트(살짝 빨강)
+            skeletonAnimation.Skeleton.SetColor(new Color(1f, 0.65f, 0.65f, 1f));
+            yield return new WaitForSeconds(0.06f);
 
-        // 0.05초 동안 대기
-        yield return new WaitForSeconds(0.05f);
+            // 원복
+            skeletonAnimation.Skeleton.SetColor(baseColor);
+            yield break;
+        }
 
-        // 적의 투명도를 100%로 설정
-        color.a = 1.0f;
-        spriteRenderer.color = color;
+        if (spriteRenderer != null)
+        {
+            Color baseColor = spriteRenderer.color;
+            spriteRenderer.color = new Color(1f, 0.65f, 0.65f, 1f);
+            yield return new WaitForSeconds(0.06f);
+            spriteRenderer.color = baseColor;
+        }
     }
-
 }

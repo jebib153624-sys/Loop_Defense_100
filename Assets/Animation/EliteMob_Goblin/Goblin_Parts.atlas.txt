@@ -1,0 +1,78 @@
+Goblin_Parts.png
+	size: 550, 1047
+	filter: Linear, Linear
+Arm_L1
+	bounds: 173, 2, 167, 193
+	rotate: 90
+Arm_L2
+	bounds: 418, 573, 100, 119
+	offsets: 5, 5, 110, 129
+	rotate: 90
+Arm_R1
+	bounds: 299, 627, 100, 117
+	offsets: 5, 5, 110, 127
+	rotate: 90
+Arm_R2
+	bounds: 263, 239, 109, 93
+	offsets: 5, 5, 120, 103
+Body
+	bounds: 368, 8, 163, 200
+	offsets: 3, 4, 169, 208
+Ear_L
+	bounds: 2, 4, 233, 169
+	offsets: 3, 1, 240, 173
+	rotate: 90
+Ear_R
+	bounds: 299, 439, 186, 116
+	offsets: 4, 2, 193, 118
+	rotate: 90
+Foot_L
+	bounds: 260, 171, 105, 66
+	offsets: 3, 4, 110, 72
+Foot_R
+	bounds: 419, 675, 120, 56
+	offsets: 4, 4, 127, 64
+Hand_L
+	bounds: 2, 241, 97, 70
+	offsets: 4, 4, 105, 78
+Hand_R
+	bounds: 2, 313, 133, 259
+	offsets: 5, 5, 150, 269
+	rotate: 90
+Head
+	bounds: 2, 448, 279, 295
+	offsets: 2, 2, 284, 301
+	rotate: 90
+Hood
+	bounds: 2, 729, 415, 316
+	offsets: 0, 2, 417, 318
+Leg_L1
+	bounds: 419, 733, 75, 122
+	offsets: 5, 5, 85, 132
+	rotate: 90
+Leg_L2
+	bounds: 406, 314, 107, 135
+	offsets: 2, 0, 113, 139
+	rotate: 90
+Leg_R1
+	bounds: 263, 334, 103, 141
+	offsets: 6, 5, 114, 151
+	rotate: 90
+Leg_R2
+	bounds: 173, 208, 85, 103
+	offsets: 8, 3, 94, 110
+Pants
+	bounds: 419, 810, 122, 93
+	offsets: 6, 6, 133, 104
+Pants_L
+	bounds: 417, 423, 148, 115
+	offsets: 0, 3, 153, 121
+	rotate: 90
+Pants_R
+	bounds: 419, 905, 140, 122
+	offsets: 4, 4, 144, 128
+	rotate: 90
+Skirt
+	bounds: 374, 210, 102, 174
+	offsets: 4, 4, 109, 182
+	rotate: 90

@@ -1,0 +1,35 @@
+Slime.png
+	size: 1677, 460
+	filter: Linear, Linear
+	pma: true
+Blue/Deco_B
+	bounds: 1406, 180, 145, 146
+	offsets: 2, 1, 149, 149
+	rotate: 90
+Blue/Slime_B
+	bounds: 2, 2, 456, 349
+	offsets: 4, 4, 463, 357
+	rotate: 90
+Green/Deco_G
+	bounds: 1554, 163, 121, 162
+	offsets: 1, 0, 122, 166
+Green/Slime_G
+	bounds: 353, 2, 456, 349
+	offsets: 4, 4, 463, 357
+	rotate: 90
+Red/Deco_R
+	bounds: 1406, 31, 147, 144
+	offsets: 4, 0, 154, 147
+	rotate: 90
+Red/Slime_R
+	bounds: 704, 2, 456, 349
+	offsets: 4, 4, 463, 357
+	rotate: 90
+Yellow/Deco_Y
+	bounds: 1406, 327, 131, 207
+	offsets: 0, 5, 131, 214
+	rotate: 90
+Yellow/Slime_Y
+	bounds: 1055, 2, 456, 349
+	offsets: 4, 4, 463, 357
+	rotate: 90

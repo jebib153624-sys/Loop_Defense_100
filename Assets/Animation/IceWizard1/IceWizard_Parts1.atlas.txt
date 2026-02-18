@@ -1,0 +1,37 @@
+IceWizard_Parts1.png
+	size: 509, 331
+	filter: Linear, Linear
+	pma: true
+arm_l
+	bounds: 213, 63, 98, 135
+	offsets: 4, 0, 105, 138
+arm_r
+	bounds: 313, 65, 94, 132
+	offsets: 4, 1, 98, 136
+body
+	bounds: 341, 199, 130, 152
+	offsets: 3, 6, 138, 162
+	rotate: 90
+ear_l
+	bounds: 409, 8, 75, 92
+	offsets: 7, 2, 82, 95
+	rotate: 90
+ear_r
+	bounds: 409, 85, 112, 98
+	offsets: 1, 2, 115, 102
+	rotate: 90
+head
+	bounds: 2, 17, 209, 181
+	offsets: 5, 6, 219, 192
+leg_l
+	bounds: 213, 2, 59, 95
+	offsets: 2, 1, 62, 98
+	rotate: 90
+leg_r
+	bounds: 313, 8, 55, 87
+	offsets: 11, 4, 69, 95
+	rotate: 90
+weapon
+	bounds: 2, 200, 129, 337
+	offsets: 5, 6, 139, 348
+	rotate: 90

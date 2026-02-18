@@ -42,6 +42,7 @@ public class TowerSpawner : MonoBehaviour
 
         clone.GetComponent<TowerVisual>().UpdateVisual(); //타워 비주얼 업데이트
 
-        clone.GetComponent<TowerWeapon>().Setup(enemySpawner, sp);
+        TowerWeapon towerWeapon = clone.GetComponent<TowerWeapon>();
+        towerWeapon.Setup(enemySpawner, sp);
     }
 }

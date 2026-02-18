@@ -1,5 +1,5 @@
 {
-"skeleton": { "hash": "5fPojE1hycw", "spine": "4.2.43", "x": -354.45, "y": -81.63, "width": 605.77, "height": 625.53 },
+"skeleton": { "hash": "Pa2l7bjXMZ8", "spine": "4.2.43", "x": -354.45, "y": -81.63, "width": 605.77, "height": 625.53 },
 "bones": [
 	{ "name": "root" },
 	{ "name": "bone", "parent": "root", "x": -3.23, "y": 21.81 },
@@ -171,6 +171,9 @@
 		}
 	}
 ],
+"events": {
+	"Attack_Hit": {}
+},
 "animations": {
 	"Warrior3_Attack": {
 		"bones": {
@@ -606,7 +609,10 @@
 					{ "time": 1, "x": 6.89 }
 				]
 			}
-		}
+		},
+		"events": [
+			{ "time": 0.4333, "name": "Attack_Hit" }
+		]
 	},
 	"Warrior3_Idle": {
 		"bones": {
