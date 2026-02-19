@@ -1,43 +1,72 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum WeaponState {SearchTarget = 0 , AttackToTarget }
 
-//ÀÌ Å¬·¡½º´Â °¡Àå °¡±îÀÌ ÀÖ´Â ÀûÀ» Å½»öÇÏ°í  
+public enum WeaponState { SearchTarget = 0, AttackToTarget }
+
+//ì´ í´ë˜ìŠ¤ëŠ” ê°€ì¥ ê°€ê¹Œì´ ìˆëŠ” ì ì„ íƒìƒ‰í•˜ê³ 
 public class TowerWeapon : MonoBehaviour
 {
     [SerializeField]
-    private GameObject bullet;    // ÃÑ¾Ë ÇÁ¸®ÆÕ
+    private GameObject bullet;    // ì´ì•Œ í”„ë¦¬íŒ¹
 
     [SerializeField]
-    private Transform spawnPoint;            // ¹ß»çÃ¼ »ı¼º À§Ä¡
+    private Transform spawnPoint; // ë°œì‚¬ì²´ ìƒì„± ìœ„ì¹˜
 
-    /*[SerializeField]
-    private float attackRate = 0.5f;         // °ø°İ ¼Óµµ
-
-    [SerializeField]
-    private float attackRange = 2.0f;         // °ø°İ ¹üÀ§
-    [SerializeField]
-    private int attackDamage = 1;         // °ø°İ·Â */
-
-  
-    private Transform attackTarget = null;   // °ø°İ ´ë»ó
-    private EnemySpawner enemySpawner;        // °ÔÀÓ¿¡ Á¸ÀçÇÏ´Â Àû Á¤º¸ È¹µæ¿ë
+    private Transform attackTarget = null;   // ê³µê²© ëŒ€ìƒ
+    private EnemySpawner enemySpawner;       // ê²Œì„ì— ì¡´ì¬í•˜ëŠ” ì  ì •ë³´ íšë“ìš©
 
     private TowerType towerType;
     public SpawnPosition spawnPosition;
-    //private Gold gold;
 
-    public TowerVisual towerVisual; // Å¸¿öÀÇ ½Ã°¢Àû È¿°ú¸¦ ´ã´çÇÏ´Â ÄÄÆ÷³ÍÆ® ÂüÁ¶
-    public TowerMover towerMover; // Å¸¿öÀÇ ÀÌµ¿ »óÅÂ¸¦ È®ÀÎÇÏ±â À§ÇÑ ÄÄÆ÷³ÍÆ® ÂüÁ¶
+    public TowerVisual towerVisual; // íƒ€ì›Œì˜ ì‹œê°ì  íš¨ê³¼ë¥¼ ë‹´ë‹¹í•˜ëŠ” ì»´í¬ë„ŒíŠ¸ ì°¸ì¡°
+    public TowerMover towerMover;   // íƒ€ì›Œì˜ ì´ë™ ìƒíƒœë¥¼ í™•ì¸í•˜ê¸° ìœ„í•œ ì»´í¬ë„ŒíŠ¸ ì°¸ì¡°
 
+    [Header("Legacy (ê¸°ì¡´ ì—°ê²°ê°’)")]
     public GameObject iceRange;
+
+    [Header("Effects")]
+    [SerializeField] private GameObject floorEffect; // í•­ìƒ ì¼œë‘˜ ë°”ë‹¥ ì´í™íŠ¸
+   // [SerializeField] private GameObject rangeEffect; // ë“œë˜ê·¸/ê³µê²© ìˆœê°„ë§Œ í‘œì‹œí•  ë²”ìœ„ ì´í™íŠ¸
+
+    private Coroutine freezeRangeRoutine;
+
     private void Awake()
     {
         spawnPoint = this.transform;
         towerType = GetComponent<TowerType>();
         towerVisual = GetComponent<TowerVisual>();
         towerMover = GetComponent<TowerMover>();
+
+        ResolveEffectReferences();
+    }
+
+    private void ResolveEffectReferences()
+    {
+        // 1) FloorEffectëŠ” ì´ë¦„ìœ¼ë¡œ ìš°ì„  íƒìƒ‰
+        if (floorEffect == null)
+        {
+            Transform floor = transform.Find("FloorEffect");
+            if (floor == null)
+            {
+                Transform[] all = GetComponentsInChildren<Transform>(true);
+                for (int i = 0; i < all.Length; i++)
+                {
+                    if (all[i].name == "FloorEffect")
+                    {
+                        floor = all[i];
+                        break;
+                    }
+                }
+            }
+
+            if (floor != null)
+                floorEffect = floor.gameObject;
+        }
+
+
+      
+
     }
 
    
@@ -45,38 +74,34 @@ public class TowerWeapon : MonoBehaviour
 
     void Update()
     {
-        if (towerMover.IsDragging != prevClicking)
-        {
-            iceRange.SetActive(towerMover.IsDragging);
-            prevClicking = towerMover.IsDragging;
-        }
+        if (towerMover == null)
+            return;
+
+       
     }
+
     public void Setup(EnemySpawner enemySpawner, SpawnPosition spawnPosition)
     {
         this.enemySpawner = enemySpawner;
         this.spawnPosition = spawnPosition;
-        //this.gold = gold;
-        // ÃÖÃÊ »óÅÂ¸¦ WeaponState.SearchTargetÀ¸·Î ¼³Á¤
-        if (towerType.towerType == TowerTypes.WarriorTower)
-        {
-            iceRange.SetActive(false);
-            StartCoroutine(AttackTowerRoutine());
 
-        }
-        else
-        {
-            iceRange.SetActive(false);
-            StartCoroutine(SlowTowerRoutine());
-        }
+        // FloorEffectëŠ” í•­ìƒ ì¼œë‘ 
+        if (floorEffect != null)
+            floorEffect.SetActive(true);
+
+      
+
+        StartCoroutine(AttackTowerRoutine());
     }
+
     private void SpawnProjectile()
     {
         GameObject clone = Instantiate(bullet, spawnPoint.position, Quaternion.identity);
         clone.GetComponent<Bullet>().Setup(attackTarget, towerType.states.damage);
     }
+
     private void AttackTower()
     {
-   
         List<EnemyHP> targets = new List<EnemyHP>();
 
         for (int i = 0; i < enemySpawner.EnemyList.Count; ++i)
@@ -84,29 +109,34 @@ public class TowerWeapon : MonoBehaviour
             Enemy enemy = enemySpawner.EnemyList[i];
             if (enemy == null) continue;
 
-            float d = Vector3.Distance(enemy.transform.position, transform.position); // Å¸¿ö¿Í Àû »çÀÌÀÇ °Å¸® °è»ê
-            if (d < towerType.states.Range)// ÀûÀÌ Å¸¿öÀÇ °ø°İ ¹üÀ§ ³»¿¡ ÀÖ´ÂÁö È®ÀÎ
+            float d = Vector3.Distance(enemy.transform.position, transform.position);
+            if (d < towerType.states.Range)
             {
-                EnemyHP hp = enemy.GetComponent<EnemyHP>();//ÀûÀÇ HP ÄÄÆ÷³ÍÆ® °¡Á®¿À±â
-                if (hp != null) targets.Add(hp); // ÀûÀÇ HP ÄÄÆ÷³ÍÆ®°¡ Á¸ÀçÇÏ¸é ¸®½ºÆ®¿¡ Ãß°¡
+                EnemyHP hp = enemy.GetComponent<EnemyHP>();
+                if (hp != null) targets.Add(hp);
             }
         }
 
         if (targets.Count == 0) return;
 
-        // Attack_Hit ÀÌº¥Æ® ½ÃÁ¡¿¡ µ¿½Ã¿¡ µ¥¹ÌÁö
-        towerVisual.PlayAttackOnce( () =>
-        {
-            for (int i = 0; i < targets.Count; ++i)
-            {
-                EnemyHP hp = targets[i];
-                if (hp == null) continue;
-                hp.TakeDamage(towerType.states.damage);
-            }
-        });
+       
 
-        if (towerVisual == null || towerVisual.IsAttackPlaying) return;
+        // ì• ë‹ˆ ì´ë²¤íŠ¸(Attack_Hit / Spell_Trigger) ì‹œì ì— ë°ë¯¸ì§€ ì ìš©
+        if (towerVisual != null)
+        {
+            towerVisual.PlayAttackOnce(() =>
+            {
+                for (int i = 0; i < targets.Count; ++i)
+                {
+                    EnemyHP hp = targets[i];
+                    if (hp == null) continue;
+                    hp.TakeDamage(towerType.states.damage);
+                }
+            });
+        }
     }
+
+    
 
     private void SlowTower()
     {
@@ -122,33 +152,32 @@ public class TowerWeapon : MonoBehaviour
 
             if (distance < towerType.states.Range)
             {
-                // 20% ½½·Î¿ì¶ó¸é 0.8¹è ¼Óµµ
                 enemy.currentSpeed = enemy.moveSpeed * (1f - towerType.states.slow);
             }
             else
             {
-                // ¹üÀ§ ¹ÛÀÌ¸é ¿ø·¡ ¼Óµµ·Î º¹±¸
                 enemy.currentSpeed = enemy.moveSpeed;
             }
         }
     }
 
-IEnumerator SlowTowerRoutine()
-{
-    var mover = GetComponent<TowerMover>();
-
-    while (true)
+    IEnumerator SlowTowerRoutine()
     {
-        if (mover.IsDragging)
-        {
-            yield return null;
-            continue;
-        }
+        var mover = GetComponent<TowerMover>();
 
-        SlowTower();
-        yield return new WaitForSeconds(0.2f);
+        while (true)
+        {
+            if (mover.IsDragging)
+            {
+                yield return null;
+                continue;
+            }
+
+            SlowTower();
+            yield return new WaitForSeconds(0.2f);
+        }
     }
-}
+
     IEnumerator AttackTowerRoutine()
     {
         var mover = GetComponent<TowerMover>();
@@ -165,9 +194,11 @@ IEnumerator SlowTowerRoutine()
             yield return new WaitForSeconds(towerType.states.rate);
         }
     }
+
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position , towerType.states.Range);
+        Gizmos.DrawWireSphere(transform.position, towerType.states.Range);
     }
 }
+

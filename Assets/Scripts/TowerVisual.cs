@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using Spine;
 using Spine.Unity;
 using UnityEngine;
@@ -8,8 +8,26 @@ public class TowerVisual : MonoBehaviour
     [SerializeField] private TowerType towerType;
     public SkeletonAnimation spine;
     [SerializeField] private TowerSpineSet[] spineSets;
+    [SerializeField] private float animationSpeed = 1.5f;
 
-    private SkeletonDataAsset currentSkeleton; // °⁄ ƒ≥Ω√
+    [Header("Floor Effect")]
+    [SerializeField] private Transform floorEffectRoot;
+
+    // Rank1 ~ Rank5: Gray, Blue, Purple, Yellow, Red
+    [SerializeField] private Color[] rankColors = new Color[5]
+    {
+        new Color32(220, 220, 220, 255), // Gray (bright)
+        new Color32(0, 149, 255, 255),   // Blue (vivid)
+        new Color32(177, 0, 255, 255),   // Purple (vivid)
+        new Color32(255, 214, 0, 255),   // Yellow (vivid)
+        new Color32(255, 36, 0, 255)     // Red (vivid)
+    };
+
+    private SkeletonDataAsset currentSkeleton; // Ï∫êÏãú
+
+    private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
+    private static readonly int ColorId = Shader.PropertyToID("_Color");
+    private static readonly int TintColorId = Shader.PropertyToID("_TintColor");
 
     private void Awake()
     {
@@ -18,48 +36,67 @@ public class TowerVisual : MonoBehaviour
 
         if (!spine)
             spine = GetComponentInChildren<SkeletonAnimation>();
+
+        if (spine != null)
+            spine.timeScale = animationSpeed;
+
+        CacheFloorEffectRoot();
     }
-    private void Update()
-    {
-        //UpdateVisual();
-    }
+
     public void UpdateVisual()
     {
+        ApplyRankEffectColor();
+
         foreach (var set in spineSets)
         {
             if (set.type == towerType.towerType && set.rank == towerType.towerRank)
             {
-                // 1. Skeleton¿Ã πŸ≤Óæ˙¿ª ∂ß∏∏ ±≥√º
+                // Skeleton ÍµêÏ≤¥ Ïãú Í≥µÍ≤© ÏÉÅÌÉú Íº¨ÏûÑ Î∞©ÏßÄ
                 if (currentSkeleton != set.skeletonData)
                 {
                     currentSkeleton = set.skeletonData;
+                    IsAttackPlaying = false;
+
                     spine.skeletonDataAsset = currentSkeleton;
                     spine.Initialize(true);
+                    spine.timeScale = animationSpeed;
                 }
 
-                // 2. æ÷¥œ∏ﬁ¿Ãº«¿∫ «◊ªÛ ∞ªΩ≈
                 spine.AnimationState.SetAnimation(0, set.idleAnimation, true);
+                spine.timeScale = animationSpeed;
                 return;
             }
         }
     }
+
     public bool IsAttackPlaying { get; private set; }
+
     public void PlayAttackOnce(System.Action onHit)
     {
         if (spine == null || spine.AnimationState == null) return;
-        if (IsAttackPlaying) return; // ¿Ã ¡Ÿ¿Ã «ŸΩ…
+        if (IsAttackPlaying) return;
 
         foreach (var set in spineSets)
         {
-            if (set.type != towerType.towerType || set.rank != towerType.towerRank) continue;
+            if (set.type != towerType.towerType || set.rank != towerType.towerRank)
+                continue;
+
+            // Ïï†Îãà Ïù¥Î¶ÑÏù¥ ÎπÑÏñ¥ÏûàÍ±∞ÎÇò ÏóÜÏúºÎ©¥ ÏΩúÎ∞±Îßå Î≥¥Ïû•
+            if (string.IsNullOrEmpty(set.attackAnimation) ||
+                spine.Skeleton?.Data?.FindAnimation(set.attackAnimation) == null)
+            {
+                onHit?.Invoke();
+                return;
+            }
 
             IsAttackPlaying = true;
             var entry = spine.AnimationState.SetAnimation(0, set.attackAnimation, false);
 
             bool hitCalled = false;
+
             entry.Event += (trackEntry, e) =>
             {
-                if (!hitCalled && e.Data.Name == "Attack_Hit")
+                if (!hitCalled && (e.Data.Name == "Attack_Hit" || e.Data.Name == "Spell_Trigger"))
                 {
                     hitCalled = true;
                     onHit?.Invoke();
@@ -68,12 +105,104 @@ public class TowerVisual : MonoBehaviour
 
             entry.Complete += _ =>
             {
+                // Ïù¥Î≤§Ìä∏Í∞Ä Îπ†Ï†∏ÎèÑ Îç∞ÎØ∏ÏßÄ 1Ìöå Î≥¥Ïû•
+                if (!hitCalled)
+                {
+                    hitCalled = true;
+                    onHit?.Invoke();
+                }
+
                 IsAttackPlaying = false;
                 spine.AnimationState.SetAnimation(0, set.idleAnimation, true);
+                spine.timeScale = animationSpeed;
             };
 
-            entry.End += _ => { IsAttackPlaying = false; }; // æ»¿¸¿Âƒ°
+            entry.End += _ => { IsAttackPlaying = false; }; // ÏïàÏ†ÑÏû•Ïπò
             return;
+        }
+    }
+
+    private void CacheFloorEffectRoot()
+    {
+        if (floorEffectRoot != null)
+            return;
+
+        Transform direct = transform.Find("FloorEffect");
+        if (direct != null)
+        {
+            floorEffectRoot = direct;
+            return;
+        }
+
+        Transform[] all = GetComponentsInChildren<Transform>(true);
+        for (int i = 0; i < all.Length; i++)
+        {
+            if (all[i].name == "FloorEffect")
+            {
+                floorEffectRoot = all[i];
+                return;
+            }
+        }
+    }
+
+    private void ApplyRankEffectColor()
+    {
+        CacheFloorEffectRoot();
+        if (floorEffectRoot == null)
+            return;
+
+        int rankIndex = Mathf.Clamp((int)towerType.towerRank, 0, rankColors.Length - 1);
+        Color rankColor = rankColors[rankIndex];
+
+        // FloorEffect Ìè¨Ìï® ÌïòÏúÑ(PortalDust, GlowCircle Ìè¨Ìï®) Ï†ÑÏ≤¥ Ï†ÅÏö©
+        ApplyColorToEffectTree(floorEffectRoot, rankColor);
+    }
+
+    private void ApplyColorToEffectTree(Transform root, Color color)
+    {
+        if (root == null)
+            return;
+
+        ParticleSystem[] particles = root.GetComponentsInChildren<ParticleSystem>(true);
+        for (int i = 0; i < particles.Length; i++)
+        {
+            ParticleSystem ps = particles[i];
+            var main = ps.main;
+            main.startColor = color;
+        }
+
+        Renderer[] renderers = root.GetComponentsInChildren<Renderer>(true);
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            Renderer r = renderers[i];
+            if (r == null || r.sharedMaterial == null)
+                continue;
+
+            MaterialPropertyBlock block = new MaterialPropertyBlock();
+            r.GetPropertyBlock(block);
+
+            bool hasColorProperty = false;
+
+            if (r.sharedMaterial.HasProperty(BaseColorId))
+            {
+                block.SetColor(BaseColorId, color);
+                hasColorProperty = true;
+            }
+
+            if (r.sharedMaterial.HasProperty(ColorId))
+            {
+                block.SetColor(ColorId, color);
+                hasColorProperty = true;
+            }
+
+            if (r.sharedMaterial.HasProperty(TintColorId))
+            {
+                block.SetColor(TintColorId, color);
+                hasColorProperty = true;
+            }
+
+            if (hasColorProperty)
+                r.SetPropertyBlock(block);
         }
     }
 }
@@ -87,3 +216,5 @@ public class TowerSpineSet
     public string idleAnimation;
     public string attackAnimation;
 }
+
+

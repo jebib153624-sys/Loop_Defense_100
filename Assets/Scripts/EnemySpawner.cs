@@ -30,17 +30,30 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private PlayerHP playerHP;
 
-    private Wava currenWave;
+    [Header("Wave HP Boost")]
+    [SerializeField] private float hpIncreasePerWave = 0.2f;
+
+    private Coroutine spawnRoutine;
+    private int currentWaveIndex = 0;
+
+    public Transform path;
 
     private void Awake()
     {
         enemyList = new List<Enemy>();
     }
 
-    public void StartWave(Wava wave)
+    public void StartWave(Wava wave, int waveIndex)
     {
-        currenWave = wave;
-        StartCoroutine("SpawnEnemy");
+        currentWaveIndex = Mathf.Max(0, waveIndex);
+
+        if (spawnRoutine != null)
+        {
+            StopCoroutine(spawnRoutine);
+            spawnRoutine = null;
+        }
+
+        spawnRoutine = StartCoroutine(SpawnEnemy(wave));
     }
 
     public void SpawnEliteEnemy()
@@ -51,24 +64,38 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
-        SpawnEnemy(eliteEnemyPrefab);
+        if (gold.CurrentEnergy >= 100f)
+        {
+            AudioManager.instance.PlaySfx(8);
+            gold.CurrentEnergy -= 100;
+            SpawnEnemy(eliteEnemyPrefab);
+        }
     }
 
-    private IEnumerator SpawnEnemy()
+    private IEnumerator SpawnEnemy(Wava wave)
     {
         int spawnEnemyCount = 0;
+        float elapsed = 0f;
+        float spawnInterval = Mathf.Max(0.01f, wave.spawnTime);
 
-        while (spawnEnemyCount < currenWave.maxEnemyCount)
+        while (spawnEnemyCount < wave.maxEnemyCount && elapsed < wave.waveDuration)
         {
-            int enemyIndex = Random.Range(0, currenWave.enemyPrefab.Length);
-
-            if (SpawnEnemy(currenWave.enemyPrefab[enemyIndex]) != null)
+            if (wave.enemyPrefab == null || wave.enemyPrefab.Length == 0)
             {
-                spawnEnemyCount++;
+                Debug.LogWarning("Wave enemyPrefab array is empty.");
+                break;
             }
 
-            yield return new WaitForSeconds(currenWave.spawnTime);
+            int enemyIndex = Random.Range(0, wave.enemyPrefab.Length);
+
+            if (SpawnEnemy(wave.enemyPrefab[enemyIndex]) != null)
+                spawnEnemyCount++;
+
+            yield return new WaitForSeconds(spawnInterval);
+            elapsed += spawnInterval;
         }
+
+        spawnRoutine = null;
     }
 
     private Enemy SpawnEnemy(GameObject prefab)
@@ -92,6 +119,13 @@ public class EnemySpawner : MonoBehaviour
         enemyList.Add(enemy);
         enemy.moveSpeed = enemySpeed;
 
+        EnemyHP enemyHP = clone.GetComponent<EnemyHP>();
+        if (enemyHP != null)
+        {
+            float hpMultiplier = 1f + (currentWaveIndex * hpIncreasePerWave);
+            enemyHP.ApplyWaveHpMultiplier(hpMultiplier);
+        }
+
         SpawnEnemyHPSlider(clone);
         playerHP.EnemyCountUpdate();
 
@@ -105,19 +139,46 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemyHPSlider(GameObject enemy)
     {
         GameObject sliderClone = Instantiate(enemyHPSliderPrefab);
-        sliderClone.transform.SetParent(canvasTransform);
+
+        sliderClone.transform.SetParent(path, false);
         sliderClone.transform.localScale = Vector3.one;
 
-        sliderClone.GetComponent<SliderPositionAutoSetter>().Setup(enemy.transform);
-        sliderClone.GetComponent<EnemyHPViewer>().Setup(enemy.GetComponent<EnemyHP>());
+        SliderPositionAutoSetter positionSetter = sliderClone.GetComponent<SliderPositionAutoSetter>();
+        Enemy enemyComp = enemy.GetComponent<Enemy>();
+
+        if (positionSetter != null)
+        {
+            if (enemyComp != null)
+                positionSetter.Setup(enemy.transform, enemyComp.HpBarScreenOffset);
+            else
+                positionSetter.Setup(enemy.transform);
+        }
+
+        EnemyHPViewer hpViewer = sliderClone.GetComponent<EnemyHPViewer>();
+        if (hpViewer != null)
+            hpViewer.Setup(enemy.GetComponent<EnemyHP>());
     }
 
-    public void DestroyEnemy(Enemy enemy, int gold , int energy)
+    public void NotifyEnemyDead(Enemy enemy, int rewardGold, int rewardEnergy)
     {
-        this.gold.CurrentGold += gold;
-        this.gold.CurrentEnergy += energy;
+        gold.CurrentGold += rewardGold;
+        gold.CurrentEnergy += rewardEnergy;
         enemyList.Remove(enemy);
         playerHP.EnemyCountUpdate();
+    }
+
+    public void FinalizeEnemyDestroy(Enemy enemy)
+    {
+        if (enemy == null)
+            return;
+
         Destroy(enemy.gameObject);
     }
+
+    public void DestroyEnemy(Enemy enemy, int rewardGold, int rewardEnergy)
+    {
+        NotifyEnemyDead(enemy, rewardGold, rewardEnergy);
+        FinalizeEnemyDestroy(enemy);
+    }
 }
+

@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,7 +8,7 @@ public class TowerMover : MonoBehaviour
     private Camera mainCam;
     [SerializeField]
     public bool IsDragging = false;
-    public GameObject synthesisButton; // ÇÕ¼º ¹öÆ° ¿ÀºêÁ§Æ®
+    public GameObject synthesisButton; // í•©ì„± ë²„íŠ¼ ì˜¤ë¸Œì íŠ¸
 
     public bool isClicking;
 
@@ -21,7 +21,9 @@ public class TowerMover : MonoBehaviour
     public Vector3 offsetY;
 
 
-    private SpawnPosition currentSlot; // ÇöÀç Á¡À¯ ÁßÀÎ ½½·Ô
+    private SpawnPosition currentSlot; // í˜„ì¬ ì ìœ  ì¤‘ì¸ ìŠ¬ë¡¯
+    public SpawnPosition CurrentSlot => currentSlot;
+
     void Awake()
     {
         mainCam = Camera.main;
@@ -37,13 +39,13 @@ public class TowerMover : MonoBehaviour
         HandleTouch();
 #endif
 
-        
+
     }
 
-    // ---------------- PC Å×½ºÆ®¿ë ----------------
+    // ---------------- PC í…ŒìŠ¤íŠ¸ìš© ----------------
     void HandleMouse()
     {
-        // Pick¸¸ UI À§¿¡¼­ ¸·±â
+        // Pickë§Œ UI ìœ„ì—ì„œ ë§‰ê¸°
         if (!EventSystem.current.IsPointerOverGameObject())
         {
             if (Input.GetMouseButtonDown(0))
@@ -52,7 +54,7 @@ public class TowerMover : MonoBehaviour
             }
         }
 
-        // µå·¡±× & µå·ÓÀº Ç×»ó Çã¿ë
+        // ë“œë˜ê·¸ & ë“œë¡­ì€ í•­ìƒ í—ˆìš©
         if (Input.GetMouseButton(0))
         {
             Drag(Input.mousePosition);
@@ -65,10 +67,10 @@ public class TowerMover : MonoBehaviour
     }
 
 
-    // ---------------- ¸ğ¹ÙÀÏ ½ÇÁ¦¿ë ----------------
+    // ---------------- ëª¨ë°”ì¼ ì‹¤ì œìš© ----------------
     void HandleTouch()
     {
-        
+
         if (Input.touchCount == 0) return;
 
         Touch touch = Input.GetTouch(0);
@@ -87,7 +89,7 @@ public class TowerMover : MonoBehaviour
         }
     }
 
-    // ---------------- °øÅë ·ÎÁ÷ ----------------
+    // ---------------- ê³µí†µ ë¡œì§ ----------------
 
     void TryPick(Vector2 screenPos)
     {
@@ -101,8 +103,7 @@ public class TowerMover : MonoBehaviour
             Debug.Log(isClicking);
             originalPosition = transform.position;
             dragOffset = transform.position - (Vector3)worldPos;
-
-            // ÀÌµ¿ Áß Ãæµ¹ ºñÈ°¼º (Áß¿ä)
+            // ì´ë™ ì¤‘ ì¶©ëŒ ë¹„í™œì„± (ì¤‘ìš”)
             col.enabled = false;
         }
         else
@@ -114,19 +115,55 @@ public class TowerMover : MonoBehaviour
 
     void Drag(Vector2 screenPos)
     {
-        //synthesisButton.SetActive(false); // ÇÕ¼º ¹öÆ° ¼û±â±â
+        //synthesisButton.SetActive(false); // í•©ì„± ë²„íŠ¼ ìˆ¨ê¸°ê¸°
         if (!IsDragging) return;
-        
+
         Vector3 worldPos = mainCam.ScreenToWorldPoint(screenPos);
         worldPos.z = transform.position.z;
 
         transform.position = worldPos + dragOffset;
     }
+
+    private void SetCurrentSlot(SpawnPosition nextSlot)
+    {
+        if (currentSlot == nextSlot)
+        {
+            SyncWeaponSpawnPosition();
+            return;
+        }
+
+        if (currentSlot != null)
+            currentSlot.IsBuildTower = 0;
+
+        currentSlot = nextSlot;
+
+        if (currentSlot != null)
+            currentSlot.IsBuildTower = 1;
+
+        SyncWeaponSpawnPosition();
+    }
+
+    private void SyncWeaponSpawnPosition()
+    {
+        TowerWeapon weapon = GetComponent<TowerWeapon>();
+        if (weapon != null)
+            weapon.spawnPosition = currentSlot;
+    }
+
+    public void ReleaseCurrentSlot()
+    {
+        if (currentSlot != null)
+            currentSlot.IsBuildTower = 0;
+
+        currentSlot = null;
+        SyncWeaponSpawnPosition();
+    }
+
     [SerializeField] private LayerMask slotLayerMask;
     void Drop()
     {
         if (!IsDragging) return;
-      
+
         col.enabled = true;
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position + offsetY, searchRadius);
@@ -138,8 +175,8 @@ public class TowerMover : MonoBehaviour
         {
             SpawnPosition sp = hit.GetComponent<SpawnPosition>();
             if (sp == null) continue;
-     
-            if (sp.IsBuildTower != 0) continue; // ÀÌ¹Ì Å¸¿ö°¡ ÀÖ´Â ½½·ÔÀº °Ç³Ê¶İ´Ï´Ù.
+
+            if (sp.IsBuildTower != 0) continue; // ì´ë¯¸ íƒ€ì›Œê°€ ìˆëŠ” ìŠ¬ë¡¯ì€ ê±´ë„ˆëœë‹ˆë‹¤.
 
             float dist = Vector2.Distance(transform.position, hit.transform.position);
 
@@ -152,14 +189,8 @@ public class TowerMover : MonoBehaviour
 
         if (closestSlot != null)
         {
-            // ÀÌÀü ½½·Ô ºñ¿ì±â
-            if (currentSlot != null)
-                currentSlot.IsBuildTower = 0;
-
-            // »õ ½½·Ô Á¡À¯
             transform.position = closestSlot.transform.position;
-            closestSlot.IsBuildTower = 1;
-            currentSlot = closestSlot;
+            SetCurrentSlot(closestSlot);
             SetClicking(false);
         }
         else
@@ -170,9 +201,9 @@ public class TowerMover : MonoBehaviour
 
         IsDragging = false;
     }
-    public void GetSpawnPosition(SpawnPosition sp) // ÇöÀç Á¡À¯ ÁßÀÎ ½½·Ô Á¤º¸ ¹Ş±â
+    public void GetSpawnPosition(SpawnPosition sp) // í˜„ì¬ ì ìœ  ì¤‘ì¸ ìŠ¬ë¡¯ ì •ë³´ ë°›ê¸°
     {
-        currentSlot = sp;
+        SetCurrentSlot(sp);
     }
 
     public void SetClicking(bool value)
@@ -184,5 +215,10 @@ public class TowerMover : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position + offsetY, searchRadius);
+    }
+
+    private void OnDestroy()
+    {
+        ReleaseCurrentSlot();
     }
 }

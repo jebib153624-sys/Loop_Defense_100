@@ -9,9 +9,12 @@ public class WavaSystem : MonoBehaviour
     [SerializeField]
     private EnemySpawner enemySpawner;
 
-    public int currentWavaIndex = -1;
+    [SerializeField]
+    private float initialDelay = 10f;
 
-    public float timeBetweenWaves = 10f; // 웨이브 간 대기 시간
+    public int currentWavaIndex = -1;
+    public float timeBetweenWaves { get; private set; }
+
     private void Start()
     {
         StartCoroutine(WaveLoop());
@@ -19,28 +22,32 @@ public class WavaSystem : MonoBehaviour
 
     private IEnumerator WaveLoop()
     {
-        yield return new WaitForSeconds(10f);
+        yield return StartCoroutine(Countdown(initialDelay));
+
         while (currentWavaIndex < wavas.Length - 1)
         {
             currentWavaIndex++;
-
             Wava currentWave = wavas[currentWavaIndex];
 
-            // 다음 웨이브 duration (없으면 0)
-            float nextWaveDuration = 0f;
-            if (currentWavaIndex + 1 < wavas.Length)
-            {
-                nextWaveDuration = wavas[currentWavaIndex + 1].waveDuration;
-            }
+            enemySpawner.StartWave(currentWave, currentWavaIndex);
 
-            enemySpawner.StartWave(currentWave);
-
-            timeBetweenWaves = currentWave.waveDuration + nextWaveDuration;
-
-            yield return new WaitForSeconds(currentWave.waveDuration);
+            yield return StartCoroutine(Countdown(currentWave.waveDuration));
         }
 
         Debug.Log("모든 웨이브 종료!");
+    }
+
+    private IEnumerator Countdown(float duration)
+    {
+        timeBetweenWaves = Mathf.Max(0f, duration);
+
+        while (timeBetweenWaves > 0f)
+        {
+            timeBetweenWaves -= Time.deltaTime;
+            yield return null;
+        }
+
+        timeBetweenWaves = 0f;
     }
 }
 
@@ -51,5 +58,6 @@ public struct Wava
     public int maxEnemyCount;      // 최대 생성 수
     public GameObject[] enemyPrefab;
 
-    public float waveDuration;     // 웨이브 지속 시간 (추가됨)
+    public float waveDuration;     // 웨이브 지속 시간
 }
+

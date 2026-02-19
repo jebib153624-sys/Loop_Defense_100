@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class UpgradeJudge : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class UpgradeJudge : MonoBehaviour
         weaponState = GetComponent<TowerWeapon>();
     }
 
-    // ¿ÜºÎ(TowerMover)¿¡¼­ È£ÃâÇÏ´Â ÇÕ¼º Ã¼Å© ÇÔ¼ö
+    // ì™¸ë¶€(TowerMover)ì—ì„œ í˜¸ì¶œí•˜ëŠ” í•©ì„± ì²´í¬ í•¨ìˆ˜
     public void TryUpgrade()
     {
         if (myTowerType.towerRank >= TowerRank.Rank5)
@@ -29,29 +29,45 @@ public class UpgradeJudge : MonoBehaviour
             if (other == this)
                 continue;
 
-            TowerType otherType = other.GetComponent<TowerType>(); // ´Ù¸¥ Å¸¿öÀÇ TowerType Á¤º¸ °¡Á®¿À±â
+            TowerType otherType = other.GetComponent<TowerType>(); // ë‹¤ë¥¸ íƒ€ì›Œì˜ TowerType ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 
-            // °°Àº Å¸¿ö + °°Àº ·©Å© Á¶°Ç
+            // ê°™ì€ íƒ€ì›Œ + ê°™ì€ ë­í¬ ì¡°ê±´
             if (otherType.towerType != myTowerType.towerType)
                 continue;
 
             if (otherType.towerRank != myTowerType.towerRank)
                 continue;
 
-            // ===== ÇÕ¼º ½ÇÇà =====
+            // ===== í•©ì„± ì‹¤í–‰ =====
 
-            // ·©Å© +1
+            // ë­í¬ +1
             myTowerType.towerRank++;
 
-            // ¸®½ºÆ®¿¡¼­ Á¦°Å
+            // ë¦¬ìŠ¤íŠ¸ì—ì„œ ì œê±°
             towerSpawner.towerList.Remove(other);
 
-            // »ó´ë ÆÄ±«
-            GetComponent<TowerVisual>().UpdateVisual();// ºñÁÖ¾ó ¾÷µ¥ÀÌÆ®
-            other.GetComponent<TowerWeapon>().spawnPosition.IsBuildTower--;// ½ºÆù °¡´ÉÇÑ Æ÷Áö¼ÇÀ¸·Î º¯°æ 
-            myTowerType.ApplyStats();// ½ºÅÈ Àû¿ë
+            // ìƒëŒ€ íŒŒê´´
+            GetComponent<TowerVisual>().UpdateVisual();// ë¹„ì£¼ì–¼ ì—…ë°ì´íŠ¸
+
+            // ë‹¤ë¥¸ íƒ€ì›Œì˜ "í˜„ì¬ ìŠ¬ë¡¯"ì„ ê¸°ì¤€ìœ¼ë¡œ ì ìœ  í•´ì œ
+            TowerMover otherMover = other.GetComponent<TowerMover>();
+            if (otherMover != null)
+            {
+                otherMover.ReleaseCurrentSlot();
+            }
+            else
+            {
+                // ì˜ˆì™¸ ëŒ€ë¹„ fallback
+                TowerWeapon otherWeapon = other.GetComponent<TowerWeapon>();
+                if (otherWeapon != null && otherWeapon.spawnPosition != null)
+                {
+                    otherWeapon.spawnPosition.IsBuildTower = 0;
+                }
+            }
+
+            myTowerType.ApplyStats();// ìŠ¤íƒ¯ ì ìš©
             Destroy(other.gameObject);
-            Debug.Log("ÇÕ¼º ¼º°ø!");
+            Debug.Log("í•©ì„± ì„±ê³µ!");
             return;
         }
     }

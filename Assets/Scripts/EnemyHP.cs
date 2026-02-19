@@ -1,4 +1,4 @@
-using System.Collections; 
+using System.Collections;
 using UnityEngine;
 using Spine.Unity;
 
@@ -22,6 +22,13 @@ public class EnemyHP : MonoBehaviour
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         skeletonAnimation = GetComponentInChildren<SkeletonAnimation>(); // 스파인이 자식일 수 있음
+    }
+
+    public void ApplyWaveHpMultiplier(float multiplier)
+    {
+        multiplier = Mathf.Max(1f, multiplier);
+        maxHP *= multiplier;
+        currentHP = maxHP;
     }
 
     public void TakeDamage(float damage)

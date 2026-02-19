@@ -55,8 +55,8 @@ MonoBehaviour:
   moveSpeed: 2
   currentSpeed: 0
   moveDirection: {x: 0, y: 0, z: 0}
-  gold: 50
-  energy: 100
+  gold: 0
+  energy: 10
 --- !u!114 &-5372035699687673868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skeleton: {fileID: 0}
   walkAnimationName: Slime_Walking2
-  attackAnimationName: Attack
+  deadAnimationName: Slime_Dead
 --- !u!33 &3802199203098706665
 MeshFilter:
   m_ObjectHideFlags: 0

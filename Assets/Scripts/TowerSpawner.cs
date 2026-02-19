@@ -9,7 +9,7 @@ public class TowerSpawner : MonoBehaviour
     private GameObject towerPrefab;
 
     [SerializeField]
-    private EnemySpawner enemySpawner; // 적정보 받아오려고 
+    private EnemySpawner enemySpawner; // 적정보 받아오려고
 
 
     [SerializeField]
@@ -22,13 +22,14 @@ public class TowerSpawner : MonoBehaviour
 
 
 
-        /*   // 위치 넣는걸 함수 실행하기 전에 검사할 예정 //갯수 제한하려고 만든 스크립트 (맵에 깔려있는거)에서 가져와서 갯수 제한함 
+        /*   // 위치 넣는걸 함수 실행하기 전에 검사할 예정 //갯수 제한하려고 만든 스크립트 (맵에 깔려있는거)에서 가져와서 갯수 제한함
         if(spawnPosition.IsBuildTower >= 2)
         {
             return;
         }*/
 
-        sp.IsBuildTower++;
+        // 슬롯 점유값은 0/1로 고정
+        sp.IsBuildTower = 1;
 
         GameObject clone = Instantiate(towerPrefab, position.position, Quaternion.identity);
         towerList.Add(clone.GetComponent<UpgradeJudge>());

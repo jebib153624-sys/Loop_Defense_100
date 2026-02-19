@@ -19,4 +19,25 @@ public class Gold : MonoBehaviour
         set => currentEnergy = Mathf.Max(0, value);
         get => currentEnergy;
     }
+
+    public bool TrySpendGold(int amount)
+    {
+        if (amount <= 0)
+            return true;
+
+        if (currentGold < amount)
+            return false;
+
+        CurrentGold -= amount;
+        return true;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            currentEnergy += 100;
+            CurrentGold += 100;
+        }
+    }
 }

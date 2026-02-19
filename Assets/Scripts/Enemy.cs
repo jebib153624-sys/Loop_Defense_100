@@ -5,9 +5,8 @@ using UnityEngine.EventSystems;
 
 public class Enemy : MonoBehaviour
 {
-
-    public Transform[] wayPoint; //각각의 위치 포인트들
-    public int nextIndex = 0; // 다음으로 이동할 인덱스 
+    public Transform[] wayPoint;
+    public int nextIndex = 0;
 
     public float moveSpeed;
     public float currentSpeed;
@@ -16,58 +15,106 @@ public class Enemy : MonoBehaviour
     private EnemySpawner enemySpawner;
 
     [SerializeField]
-    private int gold; // 적 처치시 얻는 골드량
+    private int gold;
+
     [SerializeField]
-    private int energy; // 적이 가진 에너지량
+    private int energy;
+
+    [SerializeField]
+    private Vector3 hpBarScreenOffset = new Vector3(0f, 70f, 0f);
+
+    private float baseScaleX;
+    private bool isDead = false;
+    private EnemyVisual enemyVisual;
+    private Collider2D col;
+
+    public Vector3 HpBarScreenOffset => hpBarScreenOffset;
+
+    private void Awake()
+    {
+        enemyVisual = GetComponent<EnemyVisual>();
+        if (enemyVisual == null)
+            enemyVisual = GetComponentInChildren<EnemyVisual>();
+
+        col = GetComponent<Collider2D>();
+    }
+
     private void Start()
     {
+        baseScaleX = Mathf.Abs(transform.localScale.x);
         SetDirectionToNextWaypoint();
         currentSpeed = moveSpeed;
+        UpdateFacingByX();
     }
+
     private void Update()
     {
-        transform.position += moveDirection * currentSpeed * Time.deltaTime; //이동방향 얻어오면 방향 바꾸고 이동함
-        float distance = Vector3.Distance(transform.position, wayPoint[nextIndex].position); //거리계산 <- 처음이라면 0이니까 
+        if (isDead)
+            return;
+
+        transform.position += moveDirection * currentSpeed * Time.deltaTime;
 
         if (Vector3.Distance(transform.position, wayPoint[nextIndex].position) < 0.02f * moveSpeed)
         {
-            //여기가 실행될거임
             transform.position = wayPoint[nextIndex].position;
             MoveToNextWaypoint();
-            
         }
-
     }
-    public void Setup(EnemySpawner enemySpawner,Transform[] wayPoints)
+
+    public void Setup(EnemySpawner enemySpawner, Transform[] wayPoints)
     {
-        //이 함수는 
         this.wayPoint = wayPoints;
         this.enemySpawner = enemySpawner;
 
         transform.position = wayPoint[0].position;
         nextIndex++;
     }
+
     void MoveToNextWaypoint()
     {
         nextIndex++;
 
-        //밑 if문은 마지막 체크포인트를 지나면 처음으로 돌아가는 if문
-        if(nextIndex == wayPoint.Length)
-        {
+        if (nextIndex == wayPoint.Length)
             nextIndex = 0;
-        }
+
         SetDirectionToNextWaypoint();
     }
 
     void SetDirectionToNextWaypoint()
     {
-        //다음 채크 포인트의 방향을 얻어오는 함수 
         Vector3 dir = (wayPoint[nextIndex].position - transform.position).normalized;
         moveDirection = dir;
+        UpdateFacingByX();
+    }
+
+    private void UpdateFacingByX()
+    {
+        if (Mathf.Abs(moveDirection.x) < 0.001f)
+            return;
+
+        Vector3 scale = transform.localScale;
+        scale.x = moveDirection.x > 0f ? baseScaleX : -baseScaleX;
+        transform.localScale = scale;
     }
 
     public void Ondie()
     {
-        enemySpawner.DestroyEnemy(this , gold , energy);
+        if (isDead)
+            return;
+
+        isDead = true;
+        currentSpeed = 0f;
+        moveSpeed = 0f;
+        moveDirection = Vector3.zero;
+
+        if (col != null)
+            col.enabled = false;
+
+        enemySpawner.NotifyEnemyDead(this, gold, energy);
+
+        if (enemyVisual != null)
+            enemyVisual.PlayDeadOnce(() => enemySpawner.FinalizeEnemyDestroy(this));
+        else
+            enemySpawner.FinalizeEnemyDestroy(this);
     }
 }

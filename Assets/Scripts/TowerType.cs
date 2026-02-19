@@ -4,23 +4,36 @@ public class TowerType : MonoBehaviour
 {
     public TowerTypes towerType;
     public TowerRank towerRank;
+
     public States[] warriorRankStates = new States[5];
     public States[] icerankStates = new States[5];
+
     public States states;
 
-  
+    private void Start()
+    {
+        ApplyStats();
+    }
 
     public void ApplyStats()
     {
-        int index = (int)towerRank;
-        if (towerType == TowerTypes.WarriorTower)
+        int idx = Mathf.Clamp((int)towerRank, 0, 4);
+
+        States baseStats = (towerType == TowerTypes.WarriorTower)
+            ? warriorRankStates[idx]
+            : icerankStates[idx];
+
+        States bonus = new States();
+        if (TowerRankUpgradeSystem.Instance != null)
         {
-            states = warriorRankStates[index];
+            bonus = TowerRankUpgradeSystem.Instance.GetBonus(towerType, idx);
         }
-        else
-        {
-            states = icerankStates[index];
-        }
+
+        states.damage = baseStats.damage + bonus.damage;
+        states.rate = Mathf.Max(0.1f, baseStats.rate + bonus.rate);
+        states.Range = baseStats.Range + bonus.Range;
+        states.sell = baseStats.sell + bonus.sell;
+        states.slow = baseStats.slow + bonus.slow;
     }
 }
 
@@ -30,6 +43,7 @@ public enum TowerTypes
     //AssassinTower,
     FreezeTower
 }
+
 public enum TowerRank
 {
     Rank1,
@@ -38,13 +52,14 @@ public enum TowerRank
     Rank4,
     Rank5
 }
+
 [System.Serializable]
 public struct States
 {
-
-    public float damage;//공격력
-    public float rate;//공격속도
-    public float Range;//사거리
-    public int sell;//판매가격
-    public float slow;//감속퍼센트
+    public float damage;
+    public float rate;
+    public float Range;
+    public int sell;
+    public float slow;
 }
+
