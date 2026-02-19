@@ -242,6 +242,8 @@ MonoBehaviour:
   panelUElite: {fileID: 0}
   buttonOn: {fileID: 21300000, guid: c01484b0f15484a4b9545225a9098fd8, type: 3}
   buttonOff: {fileID: 21300000, guid: bd2a40ef6fbf28043906328aa6fb9e83, type: 3}
+  panelEnding: {fileID: 0}
+  playerHP: {fileID: 0}
 --- !u!114 &173492456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1540,7 +1542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 959262fae9ccf94459c229541a4ca428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmClip: {fileID: 8300000, guid: 4d255d2eb1c7ad6428ee17e416405356, type: 3}
+  bgmClip: {fileID: 0}
   bgmVolume: 0.05
   sfxClips:
   - {fileID: 8300000, guid: 34902e291cb6be9439429927ee5bec3f, type: 3}
@@ -1551,7 +1553,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 831a61cc007c8384b9aa6314b6171160, type: 3}
   - {fileID: 8300000, guid: 7230b7919b6f22349a33014ac672760b, type: 3}
   - {fileID: 8300000, guid: c45c311fa15ee824b8c7a812cfbdd1fd, type: 3}
-  sfxVolume: 0.5
+  - {fileID: 8300000, guid: c1ec56baa165fc54c8be0fc392a80b7c, type: 3}
+  - {fileID: 8300000, guid: 4febb5d8c659150489a525c59963bee3, type: 3}
+  - {fileID: 8300000, guid: 846b9e2ff276555448361774a4c58a19, type: 3}
+  sfxVolume: 0.05
   channels: 16
 --- !u!4 &1493523108
 Transform:

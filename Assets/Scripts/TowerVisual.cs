@@ -96,11 +96,19 @@ public class TowerVisual : MonoBehaviour
 
             entry.Event += (trackEntry, e) =>
             {
-                if (!hitCalled && (e.Data.Name == "Attack_Hit" || e.Data.Name == "Spell_Trigger"))
+                if (!hitCalled && e.Data.Name == "Attack_Hit")
                 {
+                    AudioManager.instance.PlaySfx(5);
                     hitCalled = true;
                     onHit?.Invoke();
                 }
+                else if (!hitCalled && e.Data.Name == "Spell_Trigger")
+                {
+                    AudioManager.instance.PlaySfx(7);
+                    hitCalled = true;
+                    onHit?.Invoke();
+                }
+
             };
 
             entry.Complete += _ =>

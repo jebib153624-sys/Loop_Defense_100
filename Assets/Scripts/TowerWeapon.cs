@@ -63,22 +63,11 @@ public class TowerWeapon : MonoBehaviour
             if (floor != null)
                 floorEffect = floor.gameObject;
         }
-
-
-      
-
     }
 
-   
     public bool prevClicking;
 
-    void Update()
-    {
-        if (towerMover == null)
-            return;
 
-       
-    }
 
     public void Setup(EnemySpawner enemySpawner, SpawnPosition spawnPosition)
     {
@@ -126,6 +115,7 @@ public class TowerWeapon : MonoBehaviour
         {
             towerVisual.PlayAttackOnce(() =>
             {
+                //AudioManager.instance.PlaySfx(5);
                 for (int i = 0; i < targets.Count; ++i)
                 {
                     EnemyHP hp = targets[i];

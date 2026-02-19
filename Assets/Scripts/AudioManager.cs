@@ -23,7 +23,7 @@ public class AudioManager : MonoBehaviour
     {
         instance = this;
         SetUp();
-        PlayBgm(true);
+        //PlayBgm(true);
     }
  
     void SetUp()

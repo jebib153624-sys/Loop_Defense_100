@@ -56,7 +56,7 @@ public class SmoothFill : MonoBehaviour
     {
         if(slider.value == 1)
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
         }
     }
 }

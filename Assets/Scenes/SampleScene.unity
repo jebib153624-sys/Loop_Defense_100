@@ -1547,6 +1547,7 @@ GameObject:
   - component: {fileID: 173492454}
   - component: {fileID: 173492453}
   - component: {fileID: 173492455}
+  - component: {fileID: 173492456}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1737,6 +1738,18 @@ MonoBehaviour:
   buttonOff: {fileID: 21300000, guid: bd2a40ef6fbf28043906328aa6fb9e83, type: 3}
   panelEnding: {fileID: 1170069947}
   playerHP: {fileID: 1411395808}
+--- !u!114 &173492456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173492448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc8b8d954f80370488e43fe4537670d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &181857354
 GameObject:
   m_ObjectHideFlags: 0
@@ -6244,7 +6257,7 @@ MonoBehaviour:
   - spawnTime: 1.2
     maxEnemyCount: 40
     enemyPrefab:
-    - {fileID: 1412142250044893073, guid: c94a886f227bd164e8b4e879aafabc37, type: 3}
+    - {fileID: 1412142250044893073, guid: ae16ce99a97ced8409ea9c7450e8210e, type: 3}
     waveDuration: 20
   - spawnTime: 1.2
     maxEnemyCount: 40
@@ -10128,7 +10141,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1454960442}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 173492456}
+        m_TargetAssemblyTypeName: SceneMove, Assembly-CSharp
+        m_MethodName: fuckyouSceneMoveButton1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1454960442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10196,7 +10221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 959262fae9ccf94459c229541a4ca428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmClip: {fileID: 8300000, guid: 4d255d2eb1c7ad6428ee17e416405356, type: 3}
+  bgmClip: {fileID: 0}
   bgmVolume: 0.05
   sfxClips:
   - {fileID: 8300000, guid: 34902e291cb6be9439429927ee5bec3f, type: 3}
@@ -10210,7 +10235,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c1ec56baa165fc54c8be0fc392a80b7c, type: 3}
   - {fileID: 8300000, guid: 4febb5d8c659150489a525c59963bee3, type: 3}
   - {fileID: 8300000, guid: 846b9e2ff276555448361774a4c58a19, type: 3}
-  sfxVolume: 0.2
+  sfxVolume: 0.05
   channels: 16
 --- !u!4 &1493523108
 Transform:

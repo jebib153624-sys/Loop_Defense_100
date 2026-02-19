@@ -37,6 +37,9 @@ public class ui : MonoBehaviour
 
     private void Update()
     {
+        if (playerHP == null)
+            return;
+
         if(playerHP.currentEnemy >= 100f)
         {
             panelEnding.SetActive(true);
@@ -72,6 +75,7 @@ public class ui : MonoBehaviour
 
     public void UpgradePanelState()
     {
+        AudioManager.instance.PlaySfx(10);
         if (panelUpgrade == null) return;
 
         upgradePanelState = !upgradePanelState;
@@ -80,6 +84,7 @@ public class ui : MonoBehaviour
 
     public void ElitePanelState()
     {
+        AudioManager.instance.PlaySfx(10);
         if (panelUElite == null) return;
 
         elitePanelState = !elitePanelState;
