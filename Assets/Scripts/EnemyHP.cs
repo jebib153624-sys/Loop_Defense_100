@@ -1,4 +1,4 @@
-using System.Collections;
+癤퓎sing System.Collections;
 using UnityEngine;
 using Spine.Unity;
 
@@ -9,8 +9,14 @@ public class EnemyHP : MonoBehaviour
     private bool isDie = false;
 
     private Enemy enemy;
-    private SpriteRenderer spriteRenderer;         // 스프라이트용(호환)
-    private SkeletonAnimation skeletonAnimation;    // 스파인용
+    private SpriteRenderer spriteRenderer;
+    private SkeletonAnimation skeletonAnimation;
+    private Coroutine hitFlashRoutine;
+
+    private Color defaultSpriteColor = Color.white;
+    private Color defaultSkeletonColor = Color.white;
+    private bool hasSpriteDefaultColor;
+    private bool hasSkeletonDefaultColor;
 
     public float MaxHP => maxHP;
     public float CurrentHP => currentHP;
@@ -21,7 +27,9 @@ public class EnemyHP : MonoBehaviour
         enemy = GetComponent<Enemy>();
 
         spriteRenderer = GetComponent<SpriteRenderer>();
-        skeletonAnimation = GetComponentInChildren<SkeletonAnimation>(); // 스파인이 자식일 수 있음
+        skeletonAnimation = GetComponentInChildren<SkeletonAnimation>();
+
+        CacheDefaultColorsIfNeeded();
     }
 
     public void ApplyWaveHpMultiplier(float multiplier)
@@ -37,8 +45,9 @@ public class EnemyHP : MonoBehaviour
 
         currentHP -= damage;
 
-        StopCoroutine(HitFlashAnimation());
-        StartCoroutine(HitFlashAnimation());
+        CacheDefaultColorsIfNeeded();
+        ResetHitFlash();
+        hitFlashRoutine = StartCoroutine(HitFlashAnimation());
 
         if (currentHP <= 0)
         {
@@ -51,24 +60,53 @@ public class EnemyHP : MonoBehaviour
     {
         if (skeletonAnimation != null && skeletonAnimation.Skeleton != null)
         {
-            // 기본색 저장
-            var baseColor = skeletonAnimation.Skeleton.GetColor();
-
-            // 피격 틴트(살짝 빨강)
             skeletonAnimation.Skeleton.SetColor(new Color(1f, 0.65f, 0.65f, 1f));
             yield return new WaitForSeconds(0.06f);
-
-            // 원복
-            skeletonAnimation.Skeleton.SetColor(baseColor);
+            skeletonAnimation.Skeleton.SetColor(defaultSkeletonColor);
+            hitFlashRoutine = null;
             yield break;
         }
 
         if (spriteRenderer != null)
         {
-            Color baseColor = spriteRenderer.color;
             spriteRenderer.color = new Color(1f, 0.65f, 0.65f, 1f);
             yield return new WaitForSeconds(0.06f);
-            spriteRenderer.color = baseColor;
+            spriteRenderer.color = defaultSpriteColor;
         }
+
+        hitFlashRoutine = null;
+    }
+
+    private void CacheDefaultColorsIfNeeded()
+    {
+        if (!hasSpriteDefaultColor && spriteRenderer != null)
+        {
+            defaultSpriteColor = spriteRenderer.color;
+            hasSpriteDefaultColor = true;
+        }
+
+        if (!hasSkeletonDefaultColor && skeletonAnimation != null && skeletonAnimation.Skeleton != null)
+        {
+            defaultSkeletonColor = skeletonAnimation.Skeleton.GetColor();
+            hasSkeletonDefaultColor = true;
+        }
+    }
+
+    private void ResetHitFlash()
+    {
+        if (hitFlashRoutine != null)
+        {
+            StopCoroutine(hitFlashRoutine);
+            hitFlashRoutine = null;
+        }
+
+        if (skeletonAnimation != null && skeletonAnimation.Skeleton != null)
+        {
+            skeletonAnimation.Skeleton.SetColor(defaultSkeletonColor);
+            return;
+        }
+
+        if (spriteRenderer != null)
+            spriteRenderer.color = defaultSpriteColor;
     }
 }

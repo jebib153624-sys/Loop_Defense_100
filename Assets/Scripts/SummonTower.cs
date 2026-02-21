@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SummonTower : MonoBehaviour
 {
-    private const int SummonEnergyCost = 30;
+    public int SummonEnergyCost = 20;
 
     [SerializeField]
     private TowerSpawner towerSpawner; // 소환할 타워
@@ -20,11 +20,6 @@ public class SummonTower : MonoBehaviour
     {
         if (gold == null)
         {
-            gold = FindObjectOfType<Gold>();
-        }
-
-        if (gold == null)
-        {
             Debug.Log("Gold 컴포넌트를 찾지 못해 소환할 수 없습니다.");
             return;
         }
@@ -34,6 +29,8 @@ public class SummonTower : MonoBehaviour
             Debug.Log("에너지가 부족하여 소환할 수 없습니다.");
             return;
         }
+
+        SummonEnergyCost = SummonEnergyCost + 2;
 
         for (int i = 0; i < towerPosition.Count; i++)
         {

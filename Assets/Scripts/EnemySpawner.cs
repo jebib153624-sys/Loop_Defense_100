@@ -31,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
     private PlayerHP playerHP;
 
     [Header("Wave HP Boost")]
-    [SerializeField] private float hpIncreasePerWave = 0.2f;
+    [SerializeField] private float hpIncreasePerWave ;
 
     private Coroutine spawnRoutine;
     private int currentWaveIndex = 0;
@@ -78,7 +78,7 @@ public class EnemySpawner : MonoBehaviour
         float elapsed = 0f;
         float spawnInterval = Mathf.Max(0.01f, wave.spawnTime);
 
-        while (spawnEnemyCount < wave.maxEnemyCount && elapsed < wave.waveDuration)
+        while (spawnEnemyCount < wave.maxEnemyCount && elapsed < 40f)
         {
             if (wave.enemyPrefab == null || wave.enemyPrefab.Length == 0)
             {

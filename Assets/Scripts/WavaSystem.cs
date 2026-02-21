@@ -13,6 +13,8 @@ public class WavaSystem : MonoBehaviour
     private float initialDelay = 10f;
 
     public int currentWavaIndex = -1;
+
+    public float waveDuration = 40f;
     public float timeBetweenWaves { get; private set; }
 
     private void Start()
@@ -31,7 +33,7 @@ public class WavaSystem : MonoBehaviour
 
             enemySpawner.StartWave(currentWave, currentWavaIndex);
 
-            yield return StartCoroutine(Countdown(currentWave.waveDuration));
+            yield return StartCoroutine(Countdown(waveDuration));
         }
 
         Debug.Log("모든 웨이브 종료!");
@@ -58,6 +60,6 @@ public struct Wava
     public int maxEnemyCount;      // 최대 생성 수
     public GameObject[] enemyPrefab;
 
-    public float waveDuration;     // 웨이브 지속 시간
+    //public float waveDuration;     // 웨이브 지속 시간
 }
 

@@ -57,6 +57,7 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0, z: 0}
   gold: 0
   energy: 10
+  hpBarScreenOffset: {x: 0, y: 70, z: 0}
 --- !u!114 &-5372035699687673868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5799f0c93ddadcf4d9537a542d0c20b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 3
+  maxHP: 5
 --- !u!23 &3740774272903821018
 MeshRenderer:
   m_ObjectHideFlags: 0

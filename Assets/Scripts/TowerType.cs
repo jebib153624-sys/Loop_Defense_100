@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class TowerType : MonoBehaviour
 {
+    private const float MinAttackInterval = 0.35f;
+
     public TowerTypes towerType;
     public TowerRank towerRank;
 
@@ -30,7 +32,7 @@ public class TowerType : MonoBehaviour
         }
 
         states.damage = baseStats.damage + bonus.damage;
-        states.rate = Mathf.Max(0.1f, baseStats.rate + bonus.rate);
+        states.rate = Mathf.Max(MinAttackInterval, baseStats.rate + bonus.rate);
         states.Range = baseStats.Range + bonus.Range;
         states.sell = baseStats.sell + bonus.sell;
         states.slow = baseStats.slow + bonus.slow;

@@ -23,7 +23,7 @@ public class TextTMPViewer : MonoBehaviour
     private WavaSystem currentWave;  
     // °ñµå Á¤º¸
     [SerializeField]
-    private TowerSpawner towerSpawner;         // °ñµå Á¤º¸
+    private TowerSpawner towerSpawner;        
 
     [SerializeField] 
     private TextMeshProUGUI timerText;
@@ -31,7 +31,12 @@ public class TextTMPViewer : MonoBehaviour
     [SerializeField]
     private Slider slider;
 
-  
+    [SerializeField]
+    private TextMeshProUGUI textSummonCost;
+
+    [SerializeField]
+    private SummonTower SummonTower;
+
     private void Update()
     {
         textTowerCount.text = towerSpawner.towerList.Count.ToString();
@@ -57,6 +62,8 @@ public class TextTMPViewer : MonoBehaviour
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
         textEnemySliderCount.text = (playerHP.currentEnemy + " / 100").ToString();
+
+        textSummonCost.text = (SummonTower.SummonEnergyCost).ToString();
     }
 }
 

@@ -6,6 +6,13 @@ using UnityEngine.EventSystems;
 public class TowerMover : MonoBehaviour
 {
     private Camera mainCam;
+    private TowerType towerType;
+
+    [Header("Pick Zone")]
+    [SerializeField] private Transform basicZoneBlue;
+    [SerializeField] private Vector3 warriorZoneScale = new Vector3(7.5f, 7.5f, 7.5f);
+    [SerializeField] private Vector3 freezeZoneScale = new Vector3(11f, 11f, 11f);
+
     [SerializeField]
     public bool IsDragging = false;
     public GameObject synthesisButton; // 합성 버튼 오브젝트
@@ -27,6 +34,11 @@ public class TowerMover : MonoBehaviour
     void Awake()
     {
         mainCam = Camera.main;
+        towerType = GetComponent<TowerType>();
+
+        if (basicZoneBlue == null)
+            basicZoneBlue = FindChildRecursive(transform, "BasicZoneBlue");
+
         col = GetComponent<Collider2D>();
         SetClicking(false);
     }
@@ -196,9 +208,10 @@ public class TowerMover : MonoBehaviour
         else
         {
             transform.position = originalPosition;
-            //SetClicking(false);
         }
 
+        // 버튼 표시 상태와 별개로, 범위 가이드는 드롭 시 항상 숨김
+        SetPickZoneVisible(false);
         IsDragging = false;
     }
     public void GetSpawnPosition(SpawnPosition sp) // 현재 점유 중인 슬롯 정보 받기
@@ -209,7 +222,53 @@ public class TowerMover : MonoBehaviour
     public void SetClicking(bool value)
     {
         isClicking = value;
-        synthesisButton.SetActive(value);
+        if (synthesisButton != null)
+            synthesisButton.SetActive(value);
+
+        SetPickZoneVisible(value);
+    }
+
+    private void SetPickZoneVisible(bool visible)
+    {
+        if (basicZoneBlue == null)
+            return;
+
+        if (visible)
+            UpdatePickZoneScaleByType();
+
+        basicZoneBlue.gameObject.SetActive(visible);
+    }
+
+    private void UpdatePickZoneScaleByType()
+    {
+        if (basicZoneBlue == null)
+            return;
+
+        if (towerType == null)
+            towerType = GetComponent<TowerType>();
+
+        if (towerType == null)
+            return;
+
+        basicZoneBlue.localScale = (towerType.towerType == TowerTypes.WarriorTower)
+            ? warriorZoneScale
+            : freezeZoneScale;
+    }
+
+    private Transform FindChildRecursive(Transform parent, string childName)
+    {
+        for (int i = 0; i < parent.childCount; i++)
+        {
+            Transform child = parent.GetChild(i);
+            if (child.name == childName)
+                return child;
+
+            Transform found = FindChildRecursive(child, childName);
+            if (found != null)
+                return found;
+        }
+
+        return null;
     }
     void OnDrawGizmos()
     {

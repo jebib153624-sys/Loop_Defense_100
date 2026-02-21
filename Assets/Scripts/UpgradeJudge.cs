@@ -23,7 +23,7 @@ public class UpgradeJudge : MonoBehaviour
     {
         if (myTowerType.towerRank >= TowerRank.Rank5)
             return;
-
+        AudioManager.instance.PlaySfx(10);
         foreach (UpgradeJudge other in towerSpawner.towerList)
         {
             if (other == this)
@@ -42,6 +42,7 @@ public class UpgradeJudge : MonoBehaviour
 
             // 랭크 +1
             myTowerType.towerRank++;
+            PlaySynthesisSfx(myTowerType.towerType, myTowerType.towerRank);
 
             // 리스트에서 제거
             towerSpawner.towerList.Remove(other);
@@ -70,5 +71,39 @@ public class UpgradeJudge : MonoBehaviour
             Debug.Log("합성 성공!");
             return;
         }
+    }
+
+    private void PlaySynthesisSfx(TowerTypes towerType, TowerRank resultRank)
+    {
+        int sfxIndex = -1;
+
+        if (towerType == TowerTypes.WarriorTower)
+        {
+            switch (resultRank)
+            {
+                case TowerRank.Rank2: sfxIndex = 11; break;
+                case TowerRank.Rank3: sfxIndex = 12; break;
+                case TowerRank.Rank4: sfxIndex = 13; break;
+                case TowerRank.Rank5: sfxIndex = 14; break;
+            }
+        }
+        else if (towerType == TowerTypes.FreezeTower)
+        {
+            switch (resultRank)
+            {
+                case TowerRank.Rank2: sfxIndex = 15; break;
+                case TowerRank.Rank3: sfxIndex = 16; break;
+                case TowerRank.Rank4: sfxIndex = 17; break;
+                case TowerRank.Rank5: sfxIndex = 18; break;
+            }
+        }
+
+        if (sfxIndex < 0 || AudioManager.instance == null)
+            return;
+
+        if (AudioManager.instance.sfxClips == null || sfxIndex >= AudioManager.instance.sfxClips.Length)
+            return;
+
+        AudioManager.instance.PlaySfx(sfxIndex);
     }
 }
